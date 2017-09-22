@@ -1,0 +1,113 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  baremetal:
+    subnet: 192.168.110.0
+    netmask: 255.255.255.0
+    server-interface: eth2
+
+  servers:
+
+    # Core Controllers
+    - id: core1
+      role: CORE-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.4
+      mac-addr: b2:72:8d:ac:7c:6f
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.3
+      ilo-user: admin
+      ilo-password: password
+
+    # Monitoring Controllers
+    - id: mtrmon1
+      role: MTRMON-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.6
+      mac-addr: 8e:8e:62:a6:ce:76
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.5
+      ilo-user: admin
+      ilo-password: password
+
+    # DB MQ Controllers
+    - id: dbmq1
+      role: DBMQ-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.5
+      mac-addr: d6:70:c1:36:43:f7
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.4
+      ilo-user: admin
+      ilo-password: password
+
+    # Swift PAC
+    - id: swpac1
+      role: SWPAC-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.7
+      mac-addr: 22:f1:9d:ba:2c:2d
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.6
+      ilo-user: admin
+      ilo-password: password
+
+    # neutron Node
+    - id: neut1
+      role: NEUTRON-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.9
+      mac-addr: 8a:8e:64:55:43:22
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.8
+      ilo-user: admin
+      ilo-password: password
+
+    - id: swobj1
+      role: SWOBJ-ROLE
+      server-group: rack1
+      mac-addr: 8c:dc:d4:b5:ca:e0
+      nic-mapping: VAGRANT
+      ip-addr: 192.168.110.11
+      ilo-ip: 192.168.109.10
+      ilo-user: admin
+      ilo-password: password
+
+    # Compute Nodes
+    - id: compute1
+      role: COMPUTE-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.8
+      mac-addr: 24:f3:5d:b2:3c:5d
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.7
+      ilo-user: admin
+      ilo-password: password
+
+    # Spare node to swap out services (debug)
+    - id: singleton1
+      role: SINGLETON-ROLE
+      server-group: rack1
+      ip-addr: 192.168.110.10
+      mac-addr: b2:72:8d:ac:7b:f8
+      nic-mapping: VAGRANT
+      ilo-ip: 192.168.109.9
+      ilo-user: admin
+      ilo-password: password

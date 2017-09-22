@@ -1,0 +1,88 @@
+#
+# (c) Copyright 2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+    # This example is based on using a provisioning provider network as the
+    # cleaning network for ironic nodes to use.
+    #
+    # This network must be created by neutron.
+
+  configuration-data:
+    - name:  IRONIC-CONFIG-CP1
+      services:
+        - ironic
+      data:
+        # Set enable_node_cleaning to false to disable node cleaning by Ironic.
+        cleaning_network: prov-network
+        enable_node_cleaning: true
+        # Set enable_oneview to true to enable oneview for ironic.
+        enable_oneview: false
+        # Provide encrypted oneview password encryption can be done
+        # using ardanaencrypt.py or using openssl and export the key
+        # as environement variable 'ARDANA_USER_PASSWORD_ENCRYPT_KEY'
+        oneview_manager_url:
+        oneview_username:
+        oneview_encrypted_password:
+        oneview_allow_insecure_connections:
+        tls_cacert_file:
+        # Set enable_agent_drivers to false if swift is disabled
+        enable_agent_drivers: true
+        # Set multi_tenancy_enabled to true to enable multi tenancy feature
+        multi_tenancy_enabled: true
+        # Required if multi_tenancy_enabled
+        provisioning_network: prov-network
+        # Switch access configuration. Multiple switch configurations can be
+        # defined
+        multi_tenancy_switch_config:
+          -
+            # Switch id: mandatory, can be any random string uniquely
+            # identifying the switch port
+            id: switch1
+            # Driver type: mandatory, only generic supported at the moment
+            driver_type: genericswitch
+            # Device type: mandatory. Please refer to Ardana documentation for the
+            # list of supported drivers.
+            device_type: netmiko_hp_comware
+            # Switch management IP address, mandatory
+            ip_address:
+            # Switch management username, mandatory
+            username:
+            # Switch management password, mandatory. If environment variable
+            # ARDANA_USER_PASSWORD_ENCRYPT_KEY is set during playbook run, attempt
+            # to decrypt password will be made. In this case, use ardanaencrypt.py
+            # utility to set encryted password here.
+            password: ''
+          -
+            # Switch id: mandatory, can be any random string uniquely
+            # identifying the switch port
+            id: switch2
+            # Driver type: mandatory, only generic supported at the moment
+            driver_type: genericswitch
+            # Device type: mandatory. Please refer to Ardana documentation for the
+            # list of supported drivers.
+            device_type: netmiko_hp_comware
+            # Switch management IP address, mandatory
+            ip_address:
+            # Switch management username, mandatory
+            username:
+            # Switch management password, mandatory. If environment variable
+            # ARDANA_USER_PASSWORD_ENCRYPT_KEY is set during playbook run, attempt
+            # to decrypt password will be made. In this case, use ardanaencrypt.py
+            # utility to set encryted password here.
+            password: ''

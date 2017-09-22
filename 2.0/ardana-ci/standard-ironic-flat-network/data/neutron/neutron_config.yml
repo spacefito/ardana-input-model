@@ -1,0 +1,41 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  configuration-data:
+    - name:  NEUTRON-CONFIG-CP1
+      services:
+        - neutron
+      data:
+        neutron_provider_networks:
+        - name: IRONIC-FLAT-NET
+          provider:
+            - network_type: flat
+              physical_network: physnet1
+          cidr: 192.168.245.0/24
+          gateway_ip: 192.168.245.1
+          enable_dhcp: True
+          shared: True
+          allocation_pools:
+            - start: 192.168.245.128
+              end: 192.168.245.250
+        neutron_external_networks:
+        - name: ext-net
+          cidr: 172.31.0.0/16
+          gateway: 172.31.0.1

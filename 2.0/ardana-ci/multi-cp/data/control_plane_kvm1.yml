@@ -1,0 +1,124 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  control-planes:
+    - name: cp-kvm1
+      control-plane-prefix: cpkvm1
+      uses:
+        - from: cp-shared
+          service-components:
+            - any
+      failure-zones:
+        - AZ1
+      configuration-data:
+        - OCTAVIA-CONFIG-KVM1
+        - NEUTRON-CONFIG-KVM1
+      common-service-components:
+        - lifecycle-manager-target
+        - ntp-client
+        - freezer-agent
+        - stunnel
+        - monasca-agent
+        - logging-rotate
+        - logging-producer
+
+      load-balancers:
+        - name: lb
+          provider: ip-cluster
+          tls-components:
+            - default
+          components:
+            - rabbitmq
+            - mysql
+            - nova-metadata
+          roles:
+            - internal
+            - admin
+
+        - name: extlb
+          provider: ip-cluster
+          external-name: myardana-cp-kvm1.test
+          cert-file: my-public-cp-kvm1-cert
+          tls-components:
+            - default
+          roles:
+            - public
+
+      clusters:
+        - name: cluster1
+          cluster-prefix: c1
+          server-role: KVM-CONTROLLER-ROLE
+          member-count: 1
+          allocation-policy: strict
+          service-components:
+            # Test that the apache status works with no start-up
+            - apache2
+            - mysql
+            - ip-cluster
+            - rabbitmq
+            - cinder-api
+            - cinder-scheduler
+            - cinder-volume
+            - cinder-backup
+            - cmc-service
+            - nova-api
+            - nova-scheduler
+            - nova-conductor
+            - nova-console-auth
+            - nova-novncproxy
+            - neutron-server
+            - neutron-ml2-plugin
+            - neutron-vpn-agent
+            - neutron-dhcp-agent
+            - neutron-metadata-agent
+            - neutron-openvswitch-agent
+            - octavia-api
+            - octavia-health-manager
+            - ceilometer-polling
+            - ceilometer-agent-notification
+            - ceilometer-common
+            - zookeeper
+            - heat-api
+            - heat-api-cfn
+            - heat-api-cloudwatch
+            - heat-engine
+            - monasca-liveness-check
+
+      resources:
+        - name: compute
+          resource-prefix: comp
+          server-role: COMPUTE-KVM-ROLE
+          min-count: 0
+          allocation-policy: any
+          service-components:
+            - nova-compute-kvm
+            - neutron-l3-agent
+            - neutron-metadata-agent
+            - neutron-openvswitch-agent
+            - neutron-lbaasv2-agent
+
+        - name: vsa
+          resource-prefix: vsa
+          server-role: VSA-ROLE
+          allocation-policy: strict
+          min-count: 0
+          service-components:
+            - ntp-client
+            - vsa

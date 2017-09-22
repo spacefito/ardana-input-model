@@ -1,0 +1,69 @@
+#
+# (c) Copyright 2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  networks:
+    #
+    # This example uses the following networks
+    #
+    # Network       CIDR             VLAN
+    # -------       ----             ----
+    # External API  10.0.1.0/24      101 (tagged)
+    # Management    192.168.110.0/24  100 (untagged)
+    # Provisioning  (see note 1)     102 (untagged)
+    # Tenant VLANs  (see note 2)     1000-1100 (untagged)
+    #
+    # Notes:
+    # 1. Provisioning VLAN should be configured as tagged (trunked) on the
+    # switch port for control plane, and ironic compute. For ironic baremetal
+    # nodes, switch configuration should allow assignment (real assignment will
+    # be performed by neutron driver). Provisioning network is configured as
+    # neutron provider network in data/neutron/neutron_config.yml.
+    #
+    # 2. Similar to provisioning network, tenant VLAN ID range should be tagged
+    # (trunked) on the switch for control plane nodes and allow such
+    # configuration for ironic baremetal nodes. On Ardana side, it is configured
+    # untagged (see example below). Switch configuration for ironic baremetal
+    # nodes will be set by neutron driver. VLAN ID range to be used by neutron
+    # driver needs to be set into tenant-vlan-id-range field for TENANT-VLAN
+    # network group in network_groups.yml.
+    #
+    # Modify these values to match your environment
+    #
+    - name: EXTERNAL-API-NET
+      tagged-vlan: true
+      vlanid: 101
+      cidr: 10.0.1.0/24
+      gateway-ip: 10.0.1.1
+      network-group: EXTERNAL-API
+      #addresses:
+      #  - 10.0.1.10-10.0.1.250
+
+    - name: TENANT-VLAN-NET
+      tagged-vlan: false
+      network-group: TENANT-VLAN
+
+    - name: MANAGEMENT-NET
+      tagged-vlan: false
+      vlanid: 100
+      cidr: 192.168.110.0/24
+      gateway-ip: 192.168.110.1
+      network-group: MANAGEMENT
+      #addresses:
+      #  - 192.168.110.1-192.168.110.250
