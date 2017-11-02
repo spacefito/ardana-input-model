@@ -1,5 +1,5 @@
 #
-# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
 # (c) Copyright 2017 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -26,6 +26,7 @@
         - AZ2
         - AZ3
       configuration-data:
+        - DESIGNATE-CONFIG-CP1
         - SWIFT-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
@@ -116,7 +117,7 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-pool-manager
-            - designate-zone-manager
+            - designate-worker
+            - designate-producer
             - designate-mdns
             - powerdns

@@ -28,6 +28,7 @@
         - AZ2
         - AZ3
       configuration-data:
+        - DESIGNATE-CONFIG-CP1
         - OCTAVIA-CONFIG-CP1
         - NEUTRON-CONFIG-CP1
       common-service-components:
@@ -83,8 +84,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-pool-manager
-            - designate-zone-manager
+            - designate-worker
+            - designate-producer
             - designate-mdns
             - powerdns
             - magnum-api
