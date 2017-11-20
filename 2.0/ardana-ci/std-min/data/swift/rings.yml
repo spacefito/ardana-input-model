@@ -55,7 +55,7 @@ ring-specifications:
           min-part-time: 16
           partition-power: 12
           erasure-coding-policy:
-            ec-type: jerasure_rs_vand
+            ec-type: liberasurecode_rs_vand
             ec-num-data-fragments: 5
             ec-num-parity-fragments: 2
             ec-object-segment-size: 1048576
