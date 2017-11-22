@@ -37,6 +37,7 @@ service-components:
         - neutron
 
     consumes-services:
+
     -   service-name: FND-MDB
         relationship-vars:
         -   name: accounts
@@ -101,7 +102,8 @@ service-components:
     # Needed for keystone registration of service.
     - name: keystone-client
       scope: host
-
+    - name: apache2
+      scope: host
     endpoints:
     -   port: '8774'
         has-vip: true
@@ -110,3 +112,68 @@ service-components:
         - internal
         - admin
 
+-   name: nova-placement-api
+    mnemonic: NOV-PLC
+    service: nova
+
+    advertises-to-services:
+    -   service-name: KEY-API
+        entries:
+        -   service-name: placement
+            service-type: placement
+            service-description: "Nova Placement API Service"
+            url-suffix: "/"
+
+    multi-consumers:
+      default: allow
+      blocked:
+        - neutron
+
+    consumes-services:
+
+    -   service-name: FND-RMQ
+
+    -   service-name: KEY-API
+        relationship-vars:
+        -   name: nova_placement_api_user
+            value: placement
+        -   name: nova_placement_api_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
+
+    -   service-name: GLA-API
+
+    -   service-name: NEU-SVR
+
+    -   service-name: KEYMGR-API
+        optional: true
+
+    -   service-name: NOV-VNC
+        optional: true
+
+    -   service-name: MON-API
+        optional: true
+
+    requires:
+    # required for nova-cloud-configure availability zones set-up.
+    - name: nova-client
+      scope: host
+    - name: nova-metadata
+      scope: host
+    # Needed for keystone registration of service.
+    - name: keystone-client
+      scope: host
+    - name: apache2
+      scope: host
+
+    endpoints:
+    -   port: '8780'
+        has-vip: true
+        vip-options:
+        - "option tcp-check"
+        roles:
+        - public
+        - internal
+        - admin
