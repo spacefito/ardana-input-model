@@ -64,9 +64,14 @@ services:
                     value:
                         -  priv: .*:ALL,GRANT
                            dbname: nova
+                        -  priv: .*:ALL,GRANT
+                           dbname: nova_cell0
         -   name: databases
             vars:
                 nova:
                 -   name: dbname
                     value: nova
+                nova_cell0:
+                -   name: dbname
+                    value: nova_cell0
 
