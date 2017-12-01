@@ -26,7 +26,6 @@
         - AZ2
         - AZ3
       configuration-data:
-        - DESIGNATE-CONFIG-CP1
         - SWIFT-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
@@ -117,7 +116,7 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-worker
-            - designate-producer
+            - designate-pool-manager
+            - designate-zone-manager
             - designate-mdns
             - powerdns

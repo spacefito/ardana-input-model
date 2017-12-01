@@ -117,8 +117,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-worker
-            - designate-producer
+            - designate-pool-manager
+            - designate-zone-manager
             - designate-mdns
             - designate-client
             - powerdns

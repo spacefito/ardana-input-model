@@ -27,7 +27,6 @@
         - AZ2
         - AZ3
       configuration-data:
-        - DESIGNATE-CONFIG-CP1
         - IRONIC-CONFIG-CP1
         - NEUTRON-CONFIG-CP1
       common-service-components:
@@ -103,8 +102,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-worker
-            - designate-producer
+            - designate-pool-manager
+            - designate-zone-manager
             - designate-mdns
             - powerdns
 
