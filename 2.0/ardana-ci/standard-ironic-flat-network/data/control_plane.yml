@@ -57,6 +57,7 @@
             - glance-api
             - glance-registry
             - nova-api
+            - nova-placement-api
             - nova-scheduler-ironic
             - nova-scheduler
             - nova-conductor

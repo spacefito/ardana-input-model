@@ -111,6 +111,7 @@
                 glance_default_store: 'file'
             - glance-registry
             - nova-api
+            - nova-placement-api
             - nova-scheduler
             - nova-conductor
             - nova-console-auth

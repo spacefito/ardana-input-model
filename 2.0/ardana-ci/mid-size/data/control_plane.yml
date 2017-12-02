@@ -69,6 +69,7 @@
             - ip-cluster
             - memcached
             - nova-api
+            - nova-placement-api
             - nova-scheduler
             - nova-conductor
             - nova-console-auth
