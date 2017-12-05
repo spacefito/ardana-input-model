@@ -148,8 +148,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-producer
-            - designate-worker
+            - designate-zone-manager
+            - designate-pool-manager
             - designate-mdns
             - powerdns
             - magnum-api
