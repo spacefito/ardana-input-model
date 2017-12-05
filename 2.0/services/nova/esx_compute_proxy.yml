@@ -22,7 +22,3 @@ service-components:
 -   name: nova-esx-compute-proxy
     mnemonic: NOV-ESX
     service: nova
-
-    requires:
-    - name: eon-client
-      scope: host
