@@ -26,6 +26,7 @@
         - AZ2
         - AZ3
       configuration-data:
+        - DESIGNATE-CONFIG-CP1
         - SWIFT-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
