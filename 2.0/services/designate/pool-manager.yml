@@ -22,6 +22,12 @@ service-components:
 -   name: designate-pool-manager
     mnemonic: DES-PMG
     service: designate
+    warnings:
+    - >
+       'designate-pool-manager' has been deprecated and will be replaced by
+       'designate-worker'. The replacement component will be automatically
+       deployed in a future release. You will then need to update the
+       input model to remove this warning.
 
     consumes-services:
     -   service-name: FND-RMQ
