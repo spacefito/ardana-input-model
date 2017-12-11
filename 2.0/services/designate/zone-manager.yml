@@ -22,6 +22,12 @@ service-components:
 -   name: designate-zone-manager
     mnemonic: DES-ZMG
     service: designate
+    warnings:
+    - >
+       'designate-zone-manager' has been deprecated and will be replaced by
+       'designate-producer'. The replacement component will be automatically
+       deployed in a future release. You will then need to update the input
+       model to remove this warning.
 
     consumes-services:
     -   service-name: FND-RMQ
