@@ -27,3 +27,8 @@ service-components:
     -   port: '11211'
         roles:
         - internal
+
+  relationship-vars-schema:
+    - name: memcached
+      vars:
+        - name: secret_key

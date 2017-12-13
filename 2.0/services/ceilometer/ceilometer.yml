@@ -26,6 +26,13 @@ services:
     description: "Telemetry"
 
     consumes-services:
+    -   service-name: FND-MEM
+        relationship-vars:
+        -   name: memcached
+            vars:
+                ceilometer:
+                - name: secret_key
+                  value: '%random-string%'
     -   service-name: FND-RMQ
         relationship-vars:
         -   name: accounts
