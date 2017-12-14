@@ -115,6 +115,7 @@
           resource-prefix: ir-compute
           server-role: IRONIC-COMPUTE-ROLE
           allocation-policy: any
+          min-count: 0
           service-components:
             - neutron-openvswitch-agent
             - nova-compute-ironic
