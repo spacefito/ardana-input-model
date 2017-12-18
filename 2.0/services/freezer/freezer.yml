@@ -17,10 +17,19 @@
 ---
 
 product:
-  version: 2
+    version: 2
 
 services:
-  - name: freezer
+-   name: freezer
     mnemonic: FRE
     service-class: operations
     description: "Backup and Recovery"
+
+    consumes-services:
+    -   service-name: FND-MEM
+        relationship-vars:
+        -   name: memcached
+            vars:
+                freezer:
+                - name: secret_key
+                  value: '%random-string%'
