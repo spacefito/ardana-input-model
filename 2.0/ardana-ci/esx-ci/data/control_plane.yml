@@ -80,8 +80,6 @@
             - monasca-transform
             - logging-server
             - freezer-api
-            - eon-api
-            - eon-conductor
             - apache2
 
       resources:

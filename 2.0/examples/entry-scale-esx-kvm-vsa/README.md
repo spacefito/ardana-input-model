@@ -33,7 +33,7 @@ The input files in this example deploy a cloud with ESX and KVM hypervisor that 
     - VSA: Runs the Store Virtual VSA appliance. Runs on nodes of role type VSA-ROLE. One node minimum is required for demo purposes,
     three for high availability. The example lists 1 node.
 
-*EON service will add required information related to compute proxy and OVSvApp Nodes. The user need not add them*
+*User shall add required information related to compute proxy and OVSvApp Nodes*
 
 *Minimal Swift Resources are provided by the control plane*
 

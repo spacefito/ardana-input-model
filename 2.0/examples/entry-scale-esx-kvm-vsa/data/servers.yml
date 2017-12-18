@@ -84,23 +84,33 @@
       ilo-password: password
       ilo-user: admin
 
-    # Below entries will be added by EON client
-    # on performing 'eon resource-activate' operation.
+    # Below entries shall be added by the user
+    # for esx-entry-scale-kvm-vsa after following
+    # the doc instructions in creating the
+    # esx-compute-proxy VM Appliance and the
+    # esx-ovsvapp VM Appliance.
     # Added just for the reference
+    # NOTE: There should be one esx-compute per
+    # Cluster and one ovsvapp per Hypervisor in
+    # the Cluster.
+    # id - is the name of the virtual appliance
+    # ip-addr - is the Mgmt ip address of the appliance
+    # The values shown below are examples and has to be
+    # substituted based on your setup.
 
     # Nova Compute proxy node
-    #- id: esx-compute1
-    #  server-group: RACK1
-    #  ip-addr: 192.168.50.2
-    #  role: ESX-COMPUTE-ROLE
+    - id: esx-compute1
+      server-group: RACK1
+      ip-addr: 192.168.110.129
+      role: ESX-COMPUTE-ROLE
 
     # OVSVAPP node
-    #- id: ovsvapp1
-    #  server-group: RACK1
-    #  ip-addr: 192.168.50.3
-    #  role: OVSVAPP-ROLE
+    - id: ovsvapp1
+      server-group: RACK1
+      ip-addr: 192.168.110.130
+      role: OVSVAPP-ROLE
 
-    #- id: ovsvapp2
-    #  server-group: RACK1
-    #  ip-addr: 192.168.50.4
-    #  role: OVSVAPP-ROLE
+    - id: ovsvapp2
+      server-group: RACK1
+      ip-addr: 192.168.110.131
+      role: OVSVAPP-ROLE

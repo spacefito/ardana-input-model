@@ -43,8 +43,8 @@
 
     - name: ESX-COMPUTE-ROLE
       interface-model: ESX-COMPUTE-INTERFACES
-      disk-model: HLINUX-VM-DISKS
+      disk-model: APP-VM-DISKS
 
     - name: OVSVAPP-ROLE
       interface-model: OVSVAPP-INTERFACES
-      disk-model: HLINUX-VM-DISKS
+      disk-model: APP-VM-DISKS

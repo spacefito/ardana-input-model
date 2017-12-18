@@ -108,9 +108,6 @@
             - ops-console-monitor
             - cmc-service
             - freezer-api
-            - eon-api
-            - eon-conductor
-            - eon-client
             - barbican-api
             - barbican-client
             - barbican-worker
@@ -155,7 +152,6 @@
             - nova-esx-compute-proxy
             - nova-compute
             - ntp-client
-            - eon-client
 
         - name: esx-ovsvapp
           resource-prefix: esx-ovsvapp
@@ -165,4 +161,3 @@
           service-components:
             - neutron-ovsvapp-agent
             - ntp-client
-            - eon-client

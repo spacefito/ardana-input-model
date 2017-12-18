@@ -98,9 +98,6 @@
             - designate-mdns
             - designate-client
             - powerdns
-            - eon-api
-            - eon-conductor
-            - eon-client
             - magnum-api
             - magnum-conductor
 
@@ -172,7 +169,6 @@
             - nova-esx-compute-proxy
             - nova-compute
             - ntp-client
-            - eon-client
 
         - name: esx-ovsvapp
           resource-prefix: esx-ovsvapp
@@ -182,4 +178,3 @@
           service-components:
             - neutron-ovsvapp-agent
             - ntp-client
-            - eon-client

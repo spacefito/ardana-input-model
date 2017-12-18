@@ -56,15 +56,6 @@ service-components:
     consumes-services:
     -   service-name: FND-RMQ
 
-    endpoints:
-    - port: '8080'
-      roles:
-      - ovsvapp-nginx
-
-    requires:
-    - name: eon-client
-      scope: host
-
     provides-data:
       - to:
           - name: neutron-ml2-plugin
@@ -90,18 +81,6 @@ service-components:
           - option: neutron_l3_ha
             values:
               - True
-      - to:
-          - name: eon-api
-        data:
-          - option: esx_network_driver
-            values:
-              - ovsvapp
-      - to:
-          - name: eon-conductor
-        data:
-          - option: esx_network_driver
-            values:
-              - ovsvapp
       - to:
           - name: nova-esx-compute-proxy
         data:
