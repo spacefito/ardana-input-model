@@ -167,6 +167,7 @@
           resource-prefix: esx-comp
           server-role: ESX-COMPUTE-ROLE
           allocation-policy: any
+          min-count: 0
           service-components:
             - nova-esx-compute-proxy
             - nova-compute
@@ -177,6 +178,7 @@
           resource-prefix: esx-ovsvapp
           server-role: OVSVAPP-ROLE
           allocation-policy: any
+          min-count: 0
           service-components:
             - neutron-ovsvapp-agent
             - ntp-client
