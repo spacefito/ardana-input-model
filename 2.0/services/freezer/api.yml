@@ -47,7 +47,7 @@ service-components:
       - port: '9090'
         has-vip: true
         vip-options:
-          - "option httpchk GET /v1/health"
+          - "option httpchk GET /"
           - "option redispatch"
         roles:
           - public
