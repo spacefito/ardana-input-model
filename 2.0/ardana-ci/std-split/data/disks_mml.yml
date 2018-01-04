@@ -82,7 +82,7 @@
             mkfs-opts: -O large_file
 
           - name: cassandra_db
-            size: 25%
+            size: 22%
             mount: /var/cassandra/data
             fstype: ext4
             mkfs-opts: -O large_file

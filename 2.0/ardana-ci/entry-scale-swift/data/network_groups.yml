@@ -47,7 +47,6 @@
           name: lb
           tls-components:
             - default
-          components:
           roles:
             - internal
             - admin

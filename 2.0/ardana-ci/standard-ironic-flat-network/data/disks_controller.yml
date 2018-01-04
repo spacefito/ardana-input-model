@@ -112,7 +112,7 @@
           # Data storage for centralized logging. This holds log entries from all
           # servers in the cloud and hence can require a lot of disk space.
           - name: elasticsearch
-            size: 19%
+            size: 16%
             mount: /var/lib/elasticsearch
             fstype: ext4
 

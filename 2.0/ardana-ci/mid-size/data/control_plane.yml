@@ -54,7 +54,6 @@
             - cinder-scheduler
             - cinder-volume
             - cinder-backup
-            - cmc-service
             - keystone-client
             - glance-api:
                 ha_mode: false
@@ -181,15 +180,6 @@
             - neutron-metadata-agent
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
-
-        - name: vsa
-          resource-prefix: vsa
-          server-role: VSA-ROLE
-          allocation-policy: strict
-          min-count: 0
-          service-components:
-            - ntp-client
-            - vsa
 
         - name: swobj
           resource-prefix: swobj

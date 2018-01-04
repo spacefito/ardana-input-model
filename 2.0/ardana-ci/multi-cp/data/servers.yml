@@ -1,6 +1,6 @@
 #
 # (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-# (c) Copyright 2017 SUSE LLC
+# (c) Copyright 2017-2018 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -103,23 +103,3 @@
       ilo-ip: 192.168.109.50
       ilo-user: admin
       ilo-password: password
-
-#    - id: vsa0001
-#      ip-addr: 192.168.110.31
-#      role: VSA-ROLE
-#      server-group: RACK1
-#      mac-addr: 22:f1:9d:ba:3c:3d
-#      ilo-ip: 192.168.109.31
-#      ilo-password: password
-#      ilo-user: admin
-#      nic-mapping: VAGRANT
-
-#    - id: vsa0002
-#      ip-addr: 192.168.110.41
-#      role: VSA-ROLE
-#      server-group: RACK2
-#      mac-addr: 22:f1:9d:ba:3c:41
-#      ilo-ip: 192.168.109.41
-#      ilo-password: password
-#      ilo-user: admin
-#      nic-mapping: VAGRANT

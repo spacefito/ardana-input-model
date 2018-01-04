@@ -153,13 +153,10 @@
 #    # iSCSI
 #    #
 #    # This is the network group that will be used to for
-#    # iSCSI traffic between VMs and the VSA block storage
+#    # iSCSI traffic between VMs and the ISCSI block storage
 #    #
 #    - name: ISCSI
 #      hostname-suffix: iscsi
-#
-#      component-endpoints:
-#        - vsa
 
 #    #
 #    # SWIFT
