@@ -34,6 +34,10 @@ service-components:
             service-type: volumev2
             service-description: "Cinder Volume V2 Service"
             url-suffix: "/v2/%(tenant_id)s"
+        -   service-name: cinderv3
+            service-type: volumev3
+            service-description: "Cinder Volume V3 Service"
+            url-suffix: "/v3/%(tenant_id)s"
 
 
     consumes-services:
