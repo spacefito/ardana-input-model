@@ -46,6 +46,19 @@ service-components:
                 max-length: 12
                 min-length: 8
 
+    -   service-name: FND-CDB
+        optional: true
+        relationship-vars:
+        -   name: cassandra_monasca_persister_user
+            value: mon_persister
+        -   name: cassandra_monasca_persister_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
+        -   name: cassandra_datacenter_identifier
+            value: dc1
+
     -   service-name: FND-KFK
     -   service-name: FND-ZOO
 

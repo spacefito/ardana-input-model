@@ -141,6 +141,7 @@
             - spark
             - vertica
             - storm
+            - cassandra
             - monasca-api
             - monasca-persister
             - monasca-notifier
