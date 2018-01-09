@@ -29,7 +29,7 @@ service-components:
         -   name: openstack_client
             value: openstackclient
         -   name: openstack_client_python_interpreter
-            value: '{{ ''openstackclient'' | bin_dir }}/python'
+            value: '{{ ''openstackclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: CND-API

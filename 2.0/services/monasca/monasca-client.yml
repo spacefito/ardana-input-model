@@ -29,7 +29,7 @@ service-components:
         -   name: monasca_client
             value: monascaclient
         -   name: monasca_client_python_interpreter
-            value: '{{ ''monascaclient'' | bin_dir }}/python'
+            value: '{{ ''monascaclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: MON-API

@@ -29,7 +29,7 @@ service-components:
         -   name: eon_client
             value: eonclient
         -   name: eon_client_python_interpreter
-            value: '{{ ''eonclient'' | bin_dir }}/python'
+            value: '{{ ''eonclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: EON-API

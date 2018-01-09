@@ -29,7 +29,7 @@ service-components:
         -   name: heat_client
             value: heatclient
         -   name: heat_client_python_interpreter
-            value: '{{ ''heatclient'' | bin_dir }}/python'
+            value: '{{ ''heatclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: HEA-API

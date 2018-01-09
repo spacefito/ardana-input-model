@@ -29,7 +29,7 @@ service-components:
         -   name: ironic_client
             value: ironicclient
         -   name: ironic_client_python_interpreter
-            value: '{{ ''ironicclient'' | bin_dir }}/python'
+            value: '{{ ''ironicclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: IRN-API

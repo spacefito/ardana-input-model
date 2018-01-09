@@ -29,7 +29,7 @@ service-components:
         -   name: ceilometer_client
             value: ceilometerclient
         -   name: ceilometer_client_python_interpreter
-            value: '{{ ''ceilometerclient'' | bin_dir }}/python'
+            value: '{{ ''ceilometerclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: CEI-API

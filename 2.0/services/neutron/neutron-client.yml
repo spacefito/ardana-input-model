@@ -29,7 +29,7 @@ service-components:
         -   name: neutron_client
             value: neutronclient
         -   name: neutron_client_python_interpreter
-            value: '{{ ''neutronclient'' | bin_dir }}/python'
+            value: '{{ ''neutronclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: NEU-SVR

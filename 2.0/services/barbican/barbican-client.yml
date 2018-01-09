@@ -29,7 +29,7 @@ service-components:
         -   name: barbican_client
             value: barbicanclient
         -   name: barbican_client_python_interpreter
-            value: '{{ ''barbicanclient'' | bin_dir }}/python'
+            value: '{{ ''barbicanclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: KEYMGR-API

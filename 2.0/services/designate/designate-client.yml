@@ -29,7 +29,7 @@ service-components:
         -   name: designate_client
             value: designateclient
         -   name: designate_client_python_interpreter
-            value: '{{ ''designateclient'' | bin_dir }}/python'
+            value: '{{ ''designateclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: DES-API

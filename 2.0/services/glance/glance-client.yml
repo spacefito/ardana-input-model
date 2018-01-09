@@ -29,7 +29,7 @@ service-components:
         -   name: glance_client
             value: glanceclient
         -   name: glance_client_python_interpreter
-            value: '{{ ''glanceclient'' | bin_dir }}/python'
+            value: '{{ ''glanceclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: GLA-API

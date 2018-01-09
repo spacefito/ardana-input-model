@@ -29,7 +29,7 @@ service-components:
         -   name: keystone_client
             value: keystoneclient
         -   name: keystone_client_python_interpreter
-            value: '{{ ''keystoneclient'' | bin_dir }}/python'
+            value: '{{ ''keystoneclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: KEY-API

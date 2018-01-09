@@ -29,7 +29,7 @@ service-components:
         -   name: nova_client
             value: novaclient
         -   name: nova_client_python_interpreter
-            value: '{{ ''novaclient'' | bin_dir }}/python'
+            value: '{{ ''novaclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: NOV-API

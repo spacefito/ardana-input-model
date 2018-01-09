@@ -30,7 +30,7 @@ service-components:
         -   name: magnum_client
             value: magnumclient
         -   name: magnum_client_python_interpreter
-            value: '{{ ''magnumclient'' | bin_dir }}/python'
+            value: '{{ ''magnumclient'' | bin_dir if deployer_media_legacy_layout|bool else ''/usr/bin/'' }}/python'
 
     consumes-services:
     -   service-name: MAG-API
