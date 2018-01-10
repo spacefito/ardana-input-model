@@ -31,7 +31,6 @@ service-components:
             service-description: "Monasca monitoring service"
             url-suffix: "/v2.0"
 
-
     consumes-services:
     -   service-name: KEY-API
         relationship-vars:
@@ -44,6 +43,31 @@ service-components:
                 min-length: 8
 
     -   service-name: FND-KFK
+
+    -   service-name: FND-CDB
+        optional: true
+        relationship-vars:
+        -   name: cassandra_monasca_api_user
+            value: mon_api
+        -   name: cassandra_monasca_api_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
+        -   name: cassandra_monitor_user
+            value: mon_monitor
+        -   name: cassandra_monitor_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
+        -   name: cassandra_admin_user
+            value: mon_admin
+        -   name: cassandra_admin_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
 
     -   service-name: FND-IDB
         optional: true
