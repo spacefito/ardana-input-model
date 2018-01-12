@@ -61,7 +61,7 @@ service-components:
         data:
           - option: extension_drivers
             values:
-              - dns
+              - dns_domain_ports
 
       - to:
           - name: neutron-server
