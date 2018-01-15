@@ -59,7 +59,7 @@
             # Monasca server
             - kafka
             - zookeeper
-            - vertica
+            - cassandra
             - monasca-api
             - monasca-persister
 

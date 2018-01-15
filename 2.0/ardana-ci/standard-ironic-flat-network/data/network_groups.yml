@@ -72,7 +72,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - rabbitmq
             - nova-metadata
           roles:

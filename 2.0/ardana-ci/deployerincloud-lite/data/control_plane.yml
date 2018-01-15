@@ -90,7 +90,6 @@
             - zookeeper
             - kafka
             #- spark
-            #- vertica
             #- storm
             #- monasca-api
             #- monasca-persister

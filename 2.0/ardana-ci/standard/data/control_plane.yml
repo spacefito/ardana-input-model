@@ -44,7 +44,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - rabbitmq
             - nova-metadata
           roles:
@@ -139,7 +138,6 @@
             - zookeeper
             - kafka
             - spark
-            - vertica
             - storm
             - cassandra
             - monasca-api

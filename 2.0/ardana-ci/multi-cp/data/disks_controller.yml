@@ -53,7 +53,7 @@
             mount: /
 
           - name: log
-            size: 20%
+            size: 17%
             mount: /var/log
             fstype: ext4
             mkfs-opts: -O large_file
@@ -78,13 +78,21 @@
             consumer:
               name: mysql
 
-          - name: vertica
+          - name: cassandra_db
             size: 5%
-            mount: /var/vertica
+            mount: /var/cassandra/data
             fstype: ext4
             mkfs-opts: -O large_file
             consumer:
-              name: vertica
+              name: cassandra_db
+
+          - name: cassandra_log
+            size: 3%
+            mount: /var/cassandra/commitlog
+            fstype: ext4
+            mkfs-opts: -O large_file
+            consumer:
+              name: cassandra_log
 
           - name: kafka
             size: 5%

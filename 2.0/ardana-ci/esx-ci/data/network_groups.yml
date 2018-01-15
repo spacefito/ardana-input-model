@@ -52,7 +52,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - nova-metadata
           roles:
             - internal

@@ -108,7 +108,7 @@
             - ceilometer-agent-notification
             - ceilometer-common
             - ceilometer-client
-            - vertica
+            - cassandra
             - kafka
             - spark
             - logging-server

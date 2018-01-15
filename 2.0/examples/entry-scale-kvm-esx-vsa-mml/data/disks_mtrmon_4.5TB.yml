@@ -54,19 +54,27 @@
 
           # Local Log files.
           - name: log
-            size: 2%
+            size: 4%
             mount: /var/log
             fstype: ext4
             mkfs-opts: -O large_file
 
           # Database storage for event monitoring and metrics (Monasca).
-          - name: vertica
-            size: 12%
-            mount: /var/vertica
+          - name: cassandra_db
+            size: 10%
+            mount: /var/cassandra/data
             fstype: ext4
             mkfs-opts: -O large_file
             consumer:
-              name: vertica
+              name: cassandra_db
+
+          - name: cassandra_log
+            size: 1%
+            mount: /var/cassandra/commitlog
+            fstype: ext4
+            mkfs-opts: -O large_file
+            consumer:
+              name: cassandra_log
 
           # Messaging system for monitoring and logging.
           - name: kafka

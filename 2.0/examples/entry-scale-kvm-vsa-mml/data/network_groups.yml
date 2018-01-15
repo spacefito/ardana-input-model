@@ -151,7 +151,6 @@
             - default
           components:
           # These services do not currently support TLS
-            - vertica
             - nova-metadata
           roles:
             - internal

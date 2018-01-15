@@ -102,7 +102,7 @@
             - ceilometer-common
             - zookeeper
             - kafka
-            - vertica
+            - cassandra
             - storm
             - monasca-api
             - monasca-persister

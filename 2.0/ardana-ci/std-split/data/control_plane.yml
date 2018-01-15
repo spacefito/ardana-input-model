@@ -44,7 +44,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - rabbitmq
             - nova-metadata
           roles:
@@ -180,7 +179,7 @@
             - monasca-transform
             - kafka
             - spark
-            - vertica
+            - cassandra
             - storm
             - swift-account
             - swift-container

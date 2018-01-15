@@ -42,7 +42,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - rabbitmq
             - mysql
           roles:
@@ -100,7 +99,7 @@
             - ceilometer-common
             - zookeeper
             - kafka
-            - vertica
+            - cassandra
             - storm
             - spark
             - monasca-api

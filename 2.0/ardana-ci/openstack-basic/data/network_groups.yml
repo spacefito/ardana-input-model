@@ -50,7 +50,6 @@
           tls-components:
             - default
           components:
-            - vertica
             - rabbitmq
             - mysql
             - nova-metadata

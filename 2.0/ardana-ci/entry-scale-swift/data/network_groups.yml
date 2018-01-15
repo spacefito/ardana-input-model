@@ -48,7 +48,6 @@
           tls-components:
             - default
           components:
-            - vertica
           roles:
             - internal
             - admin

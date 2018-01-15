@@ -103,7 +103,7 @@
             - zookeeper
             - kafka
             - spark
-            - vertica
+            - cassandra
             - storm
             - monasca-api
             - monasca-persister
