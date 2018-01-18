@@ -119,4 +119,4 @@
             - designate-pool-manager
             - designate-zone-manager
             - designate-mdns
-            - powerdns
+            - bind

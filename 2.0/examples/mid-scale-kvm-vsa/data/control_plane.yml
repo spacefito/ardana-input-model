@@ -92,7 +92,7 @@
             - designate-zone-manager
             - designate-mdns
             - designate-client
-            - powerdns
+            - bind
             - magnum-api
             - magnum-conductor
 

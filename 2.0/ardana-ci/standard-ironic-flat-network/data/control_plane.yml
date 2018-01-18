@@ -106,7 +106,7 @@
             - designate-pool-manager
             - designate-zone-manager
             - designate-mdns
-            - powerdns
+            - bind
 
       resources:
         - name: ironic-compute

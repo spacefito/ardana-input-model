@@ -156,7 +156,7 @@
             - designate-zone-manager
             - designate-pool-manager
             - designate-mdns
-            - powerdns
+            - bind
             - magnum-api
             - magnum-conductor
 

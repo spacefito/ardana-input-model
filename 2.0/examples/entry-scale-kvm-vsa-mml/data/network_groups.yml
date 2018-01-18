@@ -29,7 +29,7 @@
     - name: EXTERNAL-API
       hostname-suffix: extapi
       component-endpoints:
-        - powerdns-ext
+        - bind-ext
 
       load-balancers:
         - provider: ip-cluster
