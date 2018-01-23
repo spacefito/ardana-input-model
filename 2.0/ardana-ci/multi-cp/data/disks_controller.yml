@@ -84,7 +84,7 @@
             fstype: ext4
             mkfs-opts: -O large_file
             consumer:
-              name: cassandra_db
+              name: cassandra
 
           - name: cassandra_log
             size: 3%
@@ -92,7 +92,7 @@
             fstype: ext4
             mkfs-opts: -O large_file
             consumer:
-              name: cassandra_log
+              name: cassandra
 
           - name: kafka
             size: 5%
