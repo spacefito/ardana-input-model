@@ -1,0 +1,85 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+product:
+  version: 2
+pass-through:
+  global:
+    vmware:
+      - username: <vcenter-admin-username>
+        ip: <vcenter-ip>
+        port: 443
+        cert_check: false
+        # The password needs to be encrypted using the script
+        # openstack/ardana/ansible/ardanaencrypt.py on the deployer:
+        #
+        # $ cd ~/openstack/ardana/ansible
+        # $ export ARDANA_USER_PASSWORD_ENCRYPT_KEY=<encryption key>
+        # $ ./ardanaencrypt.py
+        #
+        # The script will prompt for 'unencrypted value?'
+        # Enter the vCenter password in clear string.
+        # The string generated will be the encrypted password.
+        # Enter the string enclosed by double-quotes below.
+        password: "<encrypted-passwd-from-ardanaencrypt>"
+
+        # The id is obtained from the URL
+        # https://<vcenter-ip>/mob/?moid=ServiceInstance&doPath=content.about
+        # Select the field instanceUUID and copy paste the 'value' of the
+        # field instanceUUID below.
+        id: <vcenter-uuid>
+
+  servers:
+    -
+      # Here the 'id' refers to the name of the node running the
+      # esx-compute-proxy. This is identical to the 'servers.id' in
+      # servers.yml.
+      # NOTE: There should be one esx-compute-proxy node per ESX
+      # resource pool or cluster.
+      # cluster_dvs_mapping in the format
+      # 'Datacenter-name/host/Cluster-Name:Trunk-DVS-Name'
+      # Here 'host' is a string and should not be changed or
+      # substituted.
+      # vcenter_id is same as the 'vcenter-uuid' obtained in the global
+      # section.
+      # 'id': is the name of the appliance manually installed
+      # 'vcenter_cluster': Name of the vcenter target cluster
+      # esx_hostname: Name of the esx host hosting the ovsvapp
+      # NOTE: For every esx host in a cluster there should be an ovsvapp
+      # instance running.
+
+      id: esx-compute1
+      data:
+        vmware:
+          vcenter_cluster: <vmware cluster1 name>
+          vcenter_id: <vcenter-uuid>
+    -
+      id: ovsvapp1
+      data:
+        vmware:
+          vcenter_cluster: <vmware cluster1 name>
+          cluster_dvs_mapping: <cluster dvs mapping>
+          esx_hostname: <esx hostname hosting the ovsvapp>
+          vcenter_id: <vcenter-uuid>
+    -
+      id: ovsvapp2
+      data:
+        vmware:
+          vcenter_cluster: <vmware cluster1 name>
+          cluster_dvs_mapping: <cluster dvs mapping>
+          esx_hostname: <esx hostname hosting the ovsvapp>
+          vcenter_id: <vcenter-uuid>
