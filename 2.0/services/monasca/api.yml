@@ -54,20 +54,6 @@ service-components:
             properties:
                 max-length: 12
                 min-length: 8
-        -   name: cassandra_monitor_user
-            value: mon_monitor
-        -   name: cassandra_monitor_password
-            value: '%random-password%'
-            properties:
-                max-length: 12
-                min-length: 8
-        -   name: cassandra_admin_user
-            value: mon_admin
-        -   name: cassandra_admin_password
-            value: '%random-password%'
-            properties:
-                max-length: 12
-                min-length: 8
 
     -   service-name: FND-IDB
         optional: true
