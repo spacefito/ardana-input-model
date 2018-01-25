@@ -129,6 +129,9 @@ service-components:
         -   name: keystone_user_observer_role
             value: user_observer
 
+        -   name: keystone_domain_observer_role
+            value: domain_observer
+
         -   name: keystone_demo_tenant
             value: demo
 
