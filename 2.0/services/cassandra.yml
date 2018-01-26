@@ -48,6 +48,14 @@ service-components:
         -   name: cassandra_datacenter_identifier
             value: dc1
 
+        # this must match the disk model
+        -   name: cassandra_data_dir
+            value: /var/cassandra/data
+
+        # this must match the disk model
+        -   name: cassandra_commit_log_dir
+            value: /var/cassandra/commitlog
+
     endpoints:
     -   port: '22'
         roles:
