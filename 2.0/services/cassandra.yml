@@ -56,6 +56,14 @@ service-components:
         -   name: cassandra_commit_log_dir
             value: /var/cassandra/commitlog
 
+        # cassandra service user
+        -   name: cassandra_user
+            value: cassandra
+
+        # cassandra service user group
+        -   name: cassandra_group
+            value: cassandra
+
     endpoints:
     -   port: '22'
         roles:
