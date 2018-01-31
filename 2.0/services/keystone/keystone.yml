@@ -77,7 +77,7 @@ service-components:
         -   service-name: keystone
             service-type: identity
             service-description: "Identity Service"
-            url-suffix: "/v3"
+            url-suffix: "/"
 
     # Needed for now until we can update all the playbooks that read
     # the "KEY_API.advertises" variables
