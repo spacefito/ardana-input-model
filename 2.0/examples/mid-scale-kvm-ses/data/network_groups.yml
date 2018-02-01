@@ -1,6 +1,6 @@
 #
 # (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-# (c) Copyright 2017 SUSE LLC
+# (c) Copyright 2018 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -114,9 +114,9 @@
       # Note: this requires setting a 1550 mtu (or higher) on any
       # untagged network group on the same interface as GUEST so
       # the MANAGEMENT network group must also have the mtu set to at
-      # least 1550. But this example also sets the ISCSI network
+      # least 1550. But this example also sets the SES network
       # group to 9000 so in this case the MANAGEMENT network group mtu
-      # must be set to 9000 to accommodate the large ISCSI mtu setting.
+      # must be set to 9000 to accommodate the large SES mtu setting.
       #
       #mtu: 1550
 
@@ -188,27 +188,9 @@
             provider-physical-network: physnet1
 
       # Uncomment the following line to accommodate both a 1550 MTU for the GUEST network group
-      # and a 9000 MTU for the ISCSI network group. Set it to 1550 if only needed for the GUEST
+      # and a 9000 MTU for the SES network group. Set it to 1550 if only needed for the GUEST
       # network group.
       #mtu: 9000
-
-    #
-    # iSCSI
-    #
-    # This is the network group that will be used to for
-    # iSCSI traffic between VMs and the VSA block storage
-    #
-    - name: ISCSI
-      hostname-suffix: iscsi
-
-      # Uncomment the following line to enable a 9000 MTU for ISCSI traffic.
-      # Note: this requires setting a 9000 mtu on any untagged network group
-      # on the same interface as ISCSI so the MANAGEMENT network group must also
-      # have the mtu set to 9000.
-      #mtu: 9000
-
-      component-endpoints:
-        - vsa
 
     #
     # SWIFT
@@ -230,7 +212,7 @@
     # CONF
     #
     # This is the network group that will be used to
-    # provision the OS onto the ndoes and to perform
+    # provision the OS onto the nodes and to perform
     # the inital OS configuration
     #
     - name: CONF
@@ -239,4 +221,16 @@
       component-endpoints:
         - lifecycle-manager
         - lifecycle-manager-target
+
+    #
+    # SES
+    #
+    # This is the network group that will be used to talk
+    # to the external SES
+    #
+    - name: SES
+      hostname-suffix: ses
+
+      #component-endpoints:
+        #- ses
 
