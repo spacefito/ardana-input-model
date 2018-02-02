@@ -62,6 +62,7 @@
             - cinder-backup
             - cinder-client
             - nova-api
+            - nova-placement-api
             - nova-scheduler
             - nova-conductor
             - nova-console-auth
