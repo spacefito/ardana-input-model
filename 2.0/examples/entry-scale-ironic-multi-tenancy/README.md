@@ -1,6 +1,6 @@
-
+<!--
 (c) Copyright 2017 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017 SUSE LLC
+(c) Copyright 2017-2018 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -13,77 +13,89 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+-->
 
+## Entry Scale Cloud with Ironic multi tenancy
 
-##Ardana Entry Scale Cloud with Ironic Example##
+This example deploys an entry scale cloud that uses the Ironic service to
+provision physical machines through the Compute services API and supports
+multi tenancy.
 
-The input files in this example deploy a Baremetal cloud using Ironic that has the following characteristics:
+### Control Plane
 
-### Control Planes ###
+- Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
+  services, such as keystone, nova api, glance api, neutron api, horizon,
+  heat api, etc...
 
-- A single control plane consisting of three servers that co-host all of the required services.
+### Lifecycle Manager
 
-###Resource Pools###
+  The lifecycle-manager runs on one of the control-plane nodes of type
+  CONTROLLER-ROLE. The ip address of the node that will run the
+  lifecycle-manager needs to be included in the `data/servers.yml` file.
 
-*Minimal Swift Resources are provided by the control plane*
+### Resource Nodes
 
-*Additional Ironic bare metal nodes resource nodes can be added later by using Ironic API.*
+- Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs the nova-compute,
+  nova-compute-ironic and other supporting services.
 
-###Lifecycle Manager###
+- Object Storage: Minimal Swift Resources are provided by the control plane.
 
-This configuration runs the lifecycle-manager on a control plane node. You need to include
-this node address in your servers.yml definition.
-This function does not need a dedicated network.
+### Networking
 
-*The minimum server count for this example is therefore 4 servers
-(Control Plane (x3) + 1 nova-compute proxy.*
-*(Additional bare metal nodes will be added after deployment via the Ironic API)*
+This example requires the following networks:
 
+- IPMI/iLO network, connected to the deployer and the IPMI/iLO ports of all
+  nodes.
 
-An example set of servers are defined in ***data/servers.yml***. You will need to modify
-this file to reflect your specific environment.
+- External API - This is the network that users will use to make requests
+  to the cloud.
 
+- Cloud Management - This is the network that will be used for all internal
+  traffic between cloud services. This network is also used to install and
+  configure the controller nodes. This network needs to be on an untagged
+  VLAN.
 
-###Networking###
+- Provisioning - This is the network used to PXE boot the Ironic nodes and
+  install the operating system selected by tenants. This network needs to be
+  tagged on the switch for control plane/Ironic compute nodes. For
+  Ironic bare metal nodes, VLAN configuration on the switch will be set by
+  neutron driver.
 
-The example requires the following networks:
-
-- IPMI/iLO network, connected to the deployer and the IPMI/iLO ports of all servers
-- External API - This is the network that users will use to make requests to the cloud
-- Management - This is the network that will be used for all internal traffic
-  between the cloud services. This network is also used to install and configure the
-  controller nodes. This network needs to be on an untagged VLAN.
-- Provisioning - This is the network used to PXE boot the ironic nodes and install the
-  operating system selected by tenants. This network needs to be tagged (trunked) on
-  the switch for control plane/ironic compute nodes. For ironic baremetal nodes, VLAN
-  configuration on the switch will be set by neutron driver.
 - Tenant VLANs - The range of VLAN IDs should be reserved for use by Ironic and
-  set into cloud configuration. It is configured as untagged on control plane nodes,
-  therefore it can't be combined with Management network on the same network interface.
+  set in the cloud configuration. It is configured as untagged on control plane
+  nodes, therefore it can't be combined with Management network on the same
+  network interface.
 
 The following access should be allowed by routing/firewall:
-- Access from Management network to IPMI/iLO (used during Ardana installation and during
-  ironic baremetal node provisioning).
-- Access from Management network to swicth management network (used by neutron driver)
+
+- Access from Management network to IPMI/iLO. Used during cloud installation
+  and during Ironic bare metal node provisioning.
+
+- Access from Management network to switch management network. Used by neutron
+  driver.
+
 - EXTERNAL\_API network must be reachable from the tenant networks if you
   want bare metal nodes to be able to make API calls to the cloud.
 
-An example set of networks are defined in ***data/networks.yml***. You will need to
-modify this file to reflect your environment.
+This example's set of networks is defined in `data/networks.yml`. You will
+need to modify this file to reflect your environment.
 
-The example uses the devices hed3 (for Management and External API traffic) and hed4
-(for provisioning/tenant network traffic). If you need to modify these assignments
-for your environment, they are defined in ***data/net_interfaces.yml***. The network
-devices are specified in  ***data/nic_mappings.yml***. You may need to modify the PCI
-bus addresses to match your system.
+The example uses `hed3` for Management and External API traffic, and `hed4` for
+provisioning and tenant network traffic. If you need to modify these
+assignments for your environment, they are defined in
+`data/net_interfaces.yml`.
 
-###Local Storage###
+The name given to a network interface by the system is configured in the file
+`data/net_interfaces.yml`. That file needs to be modified to match your
+system.
 
-All servers should present a single OS disk, protected by a RAID controller. This
-disk needs to be at least 512GB in capacity. In addition the example configures
-additional disk depending on the role of the server:
+### Local Storage
 
-- Controllers:  /dev/sdb and /dev/sdc is configured to be used by Swift
+All nodes should present a single OS disk, protected by a RAID controller.
+This disk needs to be at least 512GB in capacity. In addition, the example
+configures additional disk depending on the node's role:
 
-Additional discs can be configured for any of these roles by editing the corresponding
-***data/disks_*.yml*** file
+- CONTROLLER-ROLE:  `/dev/sdb` and `/dev/sdc` are configured to be used by Swift
+
+Additional disks can be configured for any of the roles by editing the
+corresponding `data/disks_*.yml` file.

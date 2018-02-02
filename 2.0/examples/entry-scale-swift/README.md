@@ -1,6 +1,6 @@
-
+<!--
 (c) Copyright 2015 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017 SUSE LLC
+(c) Copyright 2017-2018 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -13,76 +13,70 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+-->
 
+## Entry Scale Swift
 
-##Ardana Entry Scale Swift Example##
+Deploys an entry scale swift environment.
 
-The input files in this example deploy a cloud that has the following characteristics:
+### Control Planes
 
+- Core cluster: 3 nodes of type CONTROLLER-ROLE run Swift and other supporting
+  services.
 
-### Control Planes ###
+### Lifecycle Manager
 
-- A single control plane consisting of three servers that co-host all the required services
-  needed to support a swift only configuration. For example keystone, monasca, horizon,
-  opsconsole. These 3 servers also include the swift proxy, account, container and
-  swift ring building services.
+  The lifecycle-manager runs on one of the control-plane nodes. The ip address
+  of the node that will run the lifecycle-manager needs to be included in the
+  `data/servers.yml` file.
 
-###Resource Pools###
+### Resource Nodes
 
-- Three swift object servers
-
+- Object storage: 3 nodes of type SWOBJ-ROLE provide the Swift object storage.
 
 *Additional resource nodes can be added to the configuration.*
 
+### Networking
 
-###Deployer Node###
+This example requires the following networks:
 
+- IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
+  of all servers.
 
-This configuration runs the lifecycle-manager (formerly referred to as the deployer) on a
-control plane node. You need to include this node address in your servers.yml definition.
-This function does not need a dedicated network.
+  _Nodes require a pair of bonded NICs which are used by the following
+  networks:_
 
-*The minimum server count for this example is therefore 7 servers (Lifecycle Manager (1)
-+ Control Plane (x3) + Swift Object (x3)*
+- External API - This is the network that users will use to make requests to
+  the cloud.
 
-An example set of servers are defined in ***data/servers.yml***. You will need to modify
-this file to reflect your specific environment.
+- Cloud Management - This is the network that will be used for all internal
+  traffic between the cloud services. This network is also used to install and
+  configure the controller nodes only. This network needs to be on an untagged
+  VLAN.
 
+- SWIFT - This network is used for internal Swift communications between the
+  Swift servers.
 
-###Networking###
+An example set of networks is defined in `data/networks.yml`.
+The file needs to be modified to reflect your environment.
 
-The example requires the following networks:
+The example uses the devices `hed3` & `hed4` as a bonded network interface
+for all services. The name given to a network interface by the system is
+configured in the file `data/net_interfaces.yml`. That file needs to be
+edited to match your system.
 
-IPMI/iLO network, connected to the deployer and the IPMI/iLO ports of all servers
+### Local Storage
 
-A pair of bonded NICs which are used by the following networks:
+All servers should present a single OS disk, protected by a RAID controller.
+This disk needs to be at least 512GB in capacity. In addition the example
+configures additional disks depending on the role of the server:
 
-- External API - This is the network that users will use to make requests to the cloud
-- Cloud Management - This is the network that will be used for all internal traffic
-  between the cloud services, This network is also used to install and configure the nodes.
-  This network needs to be on an untagged VLAN
-- SWIFT - This network is used for internal Swift comunications between the Swift servers
+- Controllers:  `/dev/sdb` and `/dev/sdc` are configured to be used by
+  Swift account and container services
 
-An example set of networks are defined in ***data/networks.yml***. You will need to
-modify this file to reflect your environment.
+- Object Servers:  `/dev/sdb`, `/dev/sdc`, `/dev/sdd` and `/dev/sde` are configured to
+  be used by the Swift object service.
 
-The example uses the devices hed3 & hed4 as a bonded network for all services.
-If you need to modify these for your environment they are defined in
-***data/net_interfaces.yml*** The network devices eth3 & eth4 are renamed to devices
-hed4 & hed5 using the PCI bus mappings secified in  ***data/nic_mappings.yml***.
-You may need to modify the PCI bus addresses to match your system.
-
-###Local Storage###
-
-All servers should present a single OS disk, protected by a RAID controller. This
-disk needs to be at least 512GB in capacity. In addition the example configures
-additional disk depending on the role of the server:
-
-- Controllers:  /dev/sdb and /dev/sdc are configured to be used by Swift account
-  and container services
-- Object Servers:  /dev/sdb, /dev/sdc, /dev/sdd and /dev/sde are configured to be
-  used by the Swift object service
-
-Additional discs can be configured for any of these roles by editing the corresponding
-***data/disks_*.yml*** file
+Additional disks can be configured for any of these roles by editing the
+corresponding `data/disks_*.yml` file.
 
