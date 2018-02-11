@@ -1,6 +1,6 @@
-
+<!--
 (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-(c) Copyright 2018 SUSE LLC
+(c) Copyright 2017-2018 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -13,65 +13,81 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+-->
 
+## Entry Scale Cloud with External SES integration
 
-##Ardana Entry Scale Cloud with External SES integration Example##
+This example deploys an entry scale cloud which can be integrated with
+external SES.
 
-The input files in this example deploy a cloud that has the following characteristics:
+### Control Plane
 
+- Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
+  services, such as keystone, nova api, glance api, neutron api, horizon,
+  heat api, etc...
 
-### Control Planes ###
+### Lifecycle Manager
 
-- A single control plane consisting of three servers that co-host all of the required services.
+  The lifecycle-manager runs on one of the control-plane nodes of type
+  CONTROLLER-ROLE. The ip address of the node that will run the
+  lifecycle-manager needs to be included in the `data/servers.yml` file.
 
-###Resource Pools###
+### Resource Nodes
 
-- One compute Node
+- Compute: One node of type COMPUTE-ROLE runs Nova Compute and associated
+  services.
 
-*Additional resource nodes can be added to the configuration.*
+- Object Storage: Minimal Swift Resources are provided by the control plane.
 
-*Minimal Swift Resources are provided by the control plane*
+  *Additional resource nodes can be added to the configuration.*
 
-###Deployer Node###
+### Networking
 
+This example requires the following networks:
 
-This configuration runs the lifecycle-manager (formerly referred to as the deployer) on a control plane node.
-You need to include this node address in your servers.yml definition. This function does not need a dedicated network.
+- IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
+  of all servers.
 
-*The minimum server count for this example is therefore 4 servers (Control Plane (x3) + Compute (x1))*
+  _Nodes require a pair of bonded NICs which are used by the following
+  networks:_
 
-An example set of servers are defined in ***data/servers.yml***.   You will need to modify this file to reflect your specific environment.
+- External API - This is the network that users will use to make requests to
+  the cloud.
 
+- External VM - This is the network that will be used to provide access to VMs
+  (via floating IP addresses).
 
-###Networking###
+- Cloud Management - This is the network that will be used for all internal
+  traffic between the cloud services, This network is also used to install and
+  configure the nodes. This network needs to be on an untagged VLAN.
 
-The example requires the following networks:
+- Guest - This is the network that will carry traffic between VMs on private
+  networks within the cloud.
 
-IPMI/iLO network, connected to the deployer and the IPMI/iLO ports of all servers
+- SES - This is the network that control plane and compute node clients will
+  use to talk to the external SES.
 
-A pair of bonded NICs which are used by the following networks:
+The EXTERNAL\_API network must be reachable from the EXTERNAL\_VM
+network for VMs to be able to make API calls to the cloud.
 
-- External API - This is the network that users will use to make requests to the cloud
-- External VM - This is the network that will be used to provide access to VMs (via floating IP addresses)
-- Guest - This is the network that will carry traffic between VMs on private networks within the cloud
-- Cloud Management - This is the network that will be used for all internal traffic between the cloud services, This network is also
-used to install and configure the nodes. This network needs to be on an untagged VLAN
-- SES - This is the network that control plane and compute nodes clients will use to talk to the external SES
+An example set of networks is defined in `data/networks.yml`.
+The file needs to be modified to reflect your environment.
 
-Note that the EXTERNAL\_API network must be reachable from the EXTERNAL\_VM network if you want VMs to be able to make API calls to the cloud
-and user can choose bonded nic or dedicated nic and can feed VLANs to any network interface based on the nic availability.
+The example uses the devices `hed3` & `hed4` as a bonded network interface
+for all services. The name given to a network interface by the system is
+configured in the file `data/net_interfaces.yml`.
+That file needs to be edited to match your system.
 
-An example set of networks are defined in ***data/networks.yml***.    You will need to modify this file to reflect your environment.
+### Local Storage
 
-The example uses the devices hed3 & hed4 as a bonded network for all services.   If you need to modify these
-for your environment they are defined in ***data/net_interfaces.yml*** The network devices eth3 & eth4 are renamed to devices hed4 & hed5 using the PCI bus mappings secified in  ***data/nic_mappings.yml***. You may need to modify the PCI bus addresses to match your system.
+All servers should present a single OS disk, protected by a RAID controller.
+This disk needs to be at least 512GB in capacity.   In addition the example
+configures one additional disk depending on the role of the server:
 
-###Local Storage###
+- Controllers:  `/dev/sdb` is configured to be used by Swift
 
-All servers should present a single OS disk, protected by a RAID controller. This disk needs to be at least 512GB in capacity.   In addition the example configures one additional disk depending on the role of the server:
+- Compute Severs:  `/dev/sdb` is configured as an additional Volume Group to be
+  used for VM storage
 
-- Controllers:  /dev/sdb is configured to be used by Swift
-- Compute Severs:  /dev/sdb is configured as an additional Volume Group to be used for VM storage
-
-Additional discs can be configured for any of these roles by editing the corresponding ***data/disks_*.yml*** file
-
+Additional discs can be configured for any of these roles by editing
+the corresponding `data/disks_*.yml` file

@@ -1,7 +1,6 @@
-
+<!--
 (c) Copyright 2015 Hewlett Packard Enterprise Development LP
-
-(c) Copyright 2018 SUSE LLC
+(c) Copyright 2017-2018 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -14,70 +13,116 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+-->
 
+## Single Region Mid-Size model
 
-## Ardana Single Region Mid-Size model
-### Introduction
+The mid-size model is intended as a template for a moderate sized cloud.
+The Control plane is made up of multiple server clusters to provide sufficient
+computational, network and IOPS capacity for a mid-size production style cloud.
 
-The mid-size model is intended as a template for a moderate sized cloud. The Control plane is made up of multiple server clusters to provide sufficient computational, network and IOPS capacity for a mid-size production style cloud.
+### Control plane
 
-The Ardana mid size model is architected as follows:
+- Core cluster: Runs Core OpenStack Services, (e.g. keystone, nova api, glance
+  api, neutron api, horizon, heat api). Default configuration is two nodes of
+  role type CORE-ROLE.
 
-#### Control plane:
+- Metering & Monitoring cluster: Runs the OpenStack Services for metering
+  & monitoring (e.g. ceilometer, monasca & logging). Default configuration is
+  three nodes of role type MTRMON-ROLE.
 
-- Core cluster: Runs Core OpenStack Services, (e.g. keystone, nova api, glance api, neutron api, horizon, heat api). Default configuration is two nodes of role type CORE-ROLE
+- Database & Message Queue Cluster: Runs clustered MariaDB and RabbitMQ
+  services to support the Ardana cloud infrastructure. Default configuration is
+  three nodes of role type DBMQ-ROLE. Three nodes are required for high
+  availability.
 
-- Metering & Monitoring cluster: Runs the OpenStack Services for metering & monitoring (e.g. celiometer, monasca & logging). Default configuration is three nodes of role type MTRMON-ROLE
+- Swift PAC cluster: Runs the Swift Proxy, Account and Container services.
+  Default configuration is three nodes of role type SWPAC-ROLE.
 
-- Database & Message Queue Cluster: Runs clustered MariaDB and RabbitMQ services to support the Ardana cloud infrastructure. Default configuration is three nodes of role type DBMQ-ROLE. Three nodes are required for high availability.
+- Neutron Agent cluster: Runs Neutron VPN (L3), DHCP, Metadata and OpenVswitch
+  agents. Default configuration is two nodes of role type NEUTRON-ROLE.
 
-- Swift PAC cluster: Runs the Swift Proxy, Account and Container services. Default configuration is three nodes or role type SWPAC-ROLE.
+### Lifecycle Manager
 
-- Neutron Agent cluster: Runs Neutron VPN (L3), DHCP, Metadata and OpenVswitch agents. Default configuration is two nodes or role type NEUTRON-ROLE.
+  The lifecycle-manager runs on one of the control-plane nodes. The ip address
+  of the node that will run the lifecycle-manager needs to be included in the
+  `data/servers.yml` file.
 
-#### Resource nodes:
+### Resource Nodes
 
-- Compute: Runs Nova Compute and associated services. Runs on nodes of role type COMPUTE-ROLE. The example lists 3 nodes, one node is required at a minimum.
+- Compute: Runs Nova Compute and associated services. Runs on nodes of role
+  type COMPUTE-ROLE. This model lists 3 nodes. One node is the minimum
+  requirement.
 
-- Object: Runs the Swift Object service. Runs on nodes of role type SWOBJ-ROLE. The minimum node count should match your Swift replica count. The example lists 3 nodes.
+- Object storage: 3 nodes of type SOWBJ-ROLE run the Swift Object service.
+  The minimum node count should match your Swift replica count.
 
-
-The minimum node count required to run the model un-modified is 19 nodes. This can be reduced by consolidating servies on the control plance clusters.
+The minimum node count required to run this model un-modified is 19 nodes.
+This can be reduced by consolidating services on the control plane clusters.
 
 ### Networking
 
-The example requires the following networks:
+This model requires the following networks:
 
-IMPI/iLO network, connected to the deployer and the IPMI/iLO ports of all servers
+- IMPI/iLO network, connected to the lifecycle-manager and the IPMI/iLO ports
+  of all nodes.
 
-A pair of bonded NICs which are used used by the following networks:
+_A pair of bonded NICs are used by the following networks:_
 
-- External API - This is the network that users will use to make requests to the cloud
-- Internal API - This is the network that will be used within the cloud for API access between services
-- External VM - This is the network that will be used to provide access to VMs (via floating IP addresses)
-- Guest - This is the network that will carry traffic between VMs on private networks within the cloud
-- Cloud Management - This is the network that will be used for all internal traffic between the cloud services. In the example this is shown as untagged. It can be tagged if needed.
-- SES - This network is used to host all SES (Cinder back end) traffic between Nova compute and the external SES servers.
-- SWIFT - This network is used for internal Swift comunications between the Swift servers.
+- External API - This is the network that users will use to make requests to
+  the cloud.
 
-Note that the EXTERNAL-API network must be reachable from the EXTERNAL-VM network if you want VMs to be able to make  API calls to the cloud.
+- Internal API - This is the network that will be used within the cloud for API
+  access between services.
 
-An example set of networks are defined in [data/networks](./data/networks.yml). You will need to modify this file to reflect your environment.
+- External VM - This is the network that will be used to provide external
+  access to VMs (via floating IP addresses).
 
-The example uses hed3 for the install network and hed4 & hed5 for the bonded network. If you need to modify these
-for your environment they are defined in [data/networks](./data/net_interfaces.yml).
+- Guest - This is the network that will carry traffic between VMs on private
+  networks within the cloud.
+
+- Cloud Management - This is the network that will be used for all internal
+  traffic between cloud services. In this model it is shown as untagged.
+  It can be tagged if required.
+
+- SES - This network is used to host all SES (Cinder back end) traffic between
+  Nova compute and the external SES nodes.
+
+- SWIFT - This network is used for internal Swift communications between the
+  Swift nodes.
+
+The EXTERNAL-API network must be reachable from the EXTERNAL-VM network if you
+want VMs to be able to make  API calls to the cloud.
+
+An example set of networks is defined in **data/networks.yml**. You will need
+to modify this file to reflect your environment.
+
+The example uses `hed3` for the install network interface and `hed4` & `hed5`
+for the bonded network interface. If you need to modify these for your
+environment use the file **data/net_interfaces.yml**.
 
 ### Adapting the mid-size model to fit your environment
 
-The minimum set of changes you need to make to adapt the model for your environment are:
+The minimum set of changes you need to make to adapt the model for your
+environment are:
 
 - Update servers.yml to list the details of your bare metal servers.
 
-- Update the networks.yml file to replace network CIDRs and VLANs with site specific values.
+- Update the networks.yml file to replace network CIDRs and VLANs with site
+  specific values.
 
-- Update the nic_mappings.yml file to ensure that network devices are mapped to the correct physical port(s).
+- Update the nic_mappings.yml file to ensure that network devices are mapped to
+  the correct physical port(s).
 
-- Review the disk models (disks_*.yml) and confirm that the associated servers have the number of disks required by the disk model. The device names in the disk models might need to be adjusted to match the probe oder of your servers. The default number of disks for the Swift nodes (3 disks) is set low on purpose to facilitate deployment on generic hardware. For production scale Swift the servers should have more disks, e.g. 6 on SWPAC nodes and 12 on SWOBJ nodes. If you allocate more Swift disks then you should review the ring power in the Swift ring confguration. This is documented in the Swift section. Disk models are provided as follows:
+- Review the disk models (disks_*.yml) and confirm that the associated servers
+  have the number of disks required by the disk model. The device names in the
+  disk models might need to be adjusted to match the probe order of your
+  servers. The default number of disks for the Swift nodes (3 disks) is set low
+  on purpose to facilitate deployment on generic hardware. For production scale
+  Swift the servers should have more disks, e.g. 6 on SWPAC nodes and 12 on
+  SWOBJ nodes. If you allocate more Swift disks then you should review the ring
+  power in the Swift ring configuration. This is documented in the Swift
+  section. Disk models are provided as follows:
 
      * DISK SET CONTROLLER: Minimum 1 disk
      * DISK SET DBMQ: Minimum 3 disks
@@ -85,11 +130,12 @@ The minimum set of changes you need to make to adapt the model for your environm
      * DISK SET SWPAC: Minimum 3 disks
      * DISK SET SWOBJ: Minimum 3 disks
 
-- Update the net interfaces.yml file to match the server NICs used in your configuration. This file has a separate interface model definition for each of the following:
+- Update the net interfaces.yml file to match the server NICs used in your
+  configuration. This file has a separate interface model definition for each
+  of the following:
 
      * INTERFACE SET CONTROLLER
      * INTERFACE SET DBMQ
      * INTERFACE SET SWPAC
      * INTERFACE SET SWOBJ
      * INTERFACE SET COMPUTE
-

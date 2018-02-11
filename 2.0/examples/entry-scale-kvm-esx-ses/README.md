@@ -1,6 +1,6 @@
-
+<!--
 (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-(c) Copyright 2018 SUSE LLC
+(c) Copyright 2017-2018 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -13,81 +13,113 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+-->
 
+## Single region Entry Scale Cloud with external SES and a mix of KVM & ESX Hypervisors
 
-## Ardana Single region Entry Scale Cloud with KVM & ESX Hypervisor and External SES integration Example ##
+This example deploys a cloud which mixes KVM and ESX hypervisors. The deployed
+cloud environment can be integrated with an external SES.
 
-The input files in this example deploy a cloud that has the following characteristics:
+### Control Plane
 
+- Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
+  services, such as keystone, nova api, glance api, neutron api, horizon,
+  heat api, etc...
 
-### Control Planes ###
+### Lifecycle Manager
 
-- A single control plane consisting of three servers that co-host all of the required services.
+  The lifecycle-manager runs on one of the control-plane nodes of type
+  CONTROLLER-ROLE. The ip address of the node that will run the
+  lifecycle-manager needs to be included in the `data/servers.yml` file.
 
-### Resource Pools ###
+### Resource Nodes
 
 - Compute:
-    - KVM: Runs nova computes and associated services. Runs on nodes of role type COMPUTE-ROLE. The example lists 1 node.
-    - ESX: (below listed resources will be provisioned for all activated clusters)
-        - One instance of Nova compute Proxy per cluster
-        - One instance of OVSvApp per node
+    - KVM: Runs nova computes and associated services. Runs on nodes of role
+           type COMPUTE-ROLE.
+    - ESX: Provides ESX compute services. OS and software on this node is
+           to be installed by user.
 
-*User shall add required information related to compute proxy and OVSvApp Nodes*
+### ESX resource requirements
 
-*Additional resource nodes can be added to the configuration.*
+1. *User needs to supply vSphere server*
 
-*Minimal Swift Resources are provided by the control plane*
+2. *User needs to deploy the ovsvapp network resources using the
+ neutron-create-ovsvapp-resources.yml playbook*
 
-### Deployer Node ###
+   The following DVS and DVPGs
+   need to be created and configured for each cluster in each ESX hypervisor
+   that will host an OvsVapp appliance. The settings for each DVS
+   and DVPG are particular to your system and network policies. A json file
+   example is provided in the documentation, but it will have to be edited
+   to match your requirements.
 
+   - ESX-CONF (DVS and DVPG) connected to ovsvapp eth0 and compute-proxy eth0
 
-This configuration runs the lifecycle-manager (formerly referred to as the deployer) on a control plane node.
-You need to include this node address in your servers.yml definition. This function does not need a dedicated network.
+   - MANAGEMENT (DVS and DVPG) connected to ovsvapp eth1 and compute-proxy eth1
 
-*The minimum server count for this example is therefore 4 servers (Control Plane (x3) + 1 activated vCenter cluster having atleast 1 host)*
+   - GUEST (DVS and DVPG) connected to ovsvapp eth2
 
-An example set of servers are defined in ***data/servers.yml***.   You will need to modify this file to reflect your specific environment.
+   - TRUNK (DVS and DVPG) connected to ovsvapp eth3
 
+3. *User needs to deploy ovsvapp appliance (OVSVAPP-ROLE) and
+ nova-proxy appliance (ESX-COMPUTE-ROLE)*
 
-### Networking ###
+4. *User needs to add required information related to compute proxy and
+ OVSvApp Nodes*
 
-The example requires the following networks:
+### Networking
 
-IPMI/iLO network, connected to the lifecycle-manager and the IPMI/iLO ports of all servers
+This example requires the following networks:
 
-A pair of bonded NICs which are used by the following networks:
+- IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
+  of all nodes, except the ESX hypervisors.
 
-- External API - This is the network that users will use to make requests to the cloud
-- External VM - This is the network that will be used to provide access to VMs (via floating IP addresses)
-- Guest - This is the network that will carry traffic between VMs on private networks within the cloud
-- Cloud Management - This is the network that will be used for all internal traffic between the cloud services, This network is also
-used to install and configure the nodes. This network needs to be on an untagged VLAN
-- SES - This is the network that control plane and compute nodes clients will use to talk to the external SES
-- TRUNK - This is the network that will be used on OVSvApp service VM
-- ESX-CONF - This is the network that will be used to provision the OS onto the nodes and to perform the initial OS configuration
+  _Nodes require a pair of bonded NICs which are used by the following
+  networks:_
 
-Note that the EXTERNAL-API network must be reachable from the EXTERNAL-VM network if you want VMs to be able to make API calls to the cloud
-and user can choose bonded nic or dedicated nic and can feed VLANs to any network interface based on the nic availability.
+- External API - This is the network that users will use to make requests to
+  the cloud.
 
-TRUNK network is the network that will be used to apply security group rules on tenant traffic. It is managed internally by Ardana cloud and
-is restricted to the vCenter environment.
+- External VM - This is the network that will be used to provide access to VMs
+  (via floating IP addresses).
 
-ESX-CONF-NET network (of ESX-CONF network-group) represents a network that is used only to configure the ESX compute nodes in the cloud.  This deployer network should be different from the pxe-based deployer network used by cobbler to standup the cloud controller cluster.
+- Guest - This is the network that will carry traffic between VMs on private
+  networks within the cloud.
 
-The Data Center Management network (which hosts the vcenter server) must be reachable from the Cloud Management network so that the controllers,
-compute proxy and OVSvApp nodes can communicate to the vcenter server.
+- Cloud Management - This is the network that will be used for all internal
+  traffic between cloud services. This network is also used to install and
+  configure nodes. This network needs to be on an untagged VLAN.
 
-An example set of networks are defined in ***./data/networks.yml***.    You will need to modify this file to reflect your environment.
+- SES - This is the network that control plane and compute node clients will
+  use to talk to the external SES.
 
-The example uses the devices hed3 & hed4 as a bonded network for all services.   If you need to modify these
-for your environment they are defined in ***./data/net_interfaces.yml*** The network devices eth3 & eth4 are renamed to devices hed4 & hed5 using the PCI bus mappings secified in  ***./data/nic_mappings.yml***. You may need to modify the PCI bus addresses to match your system.
+- TRUNK is the network that will be used to apply security group rules
+  on tenant traffic. It is managed by the cloud admin and is restricted
+  to the vCenter environment.
 
-### Local Storage ###
+- ESX-CONF-NET network is used only to configure the ESX compute nodes in the
+  cloud. This network should be different from the network used with PXE to
+  stand up the cloud control-plane.
 
-All servers should present a single OS disk, protected by a RAID controller. This disk needs to be at least 512GB in capacity.   In addition the example configures one additional disk depending on the role of the server:
+This example's set of networks is defined in `data/networks.yml`. The files
+need to be modified to reflect your environment.
 
-- Controllers:  /dev/sdb is configured to be used by Swift
-- Compute Severs:  /dev/sdb is configured as an additional Volume Group to be used for VM storage
+This example uses `hed3` & `hed4` as a bonded network interface for all nodes.
+The name given to a network interface by the system is configured in the file
+`data/net_interfaces.yml`. That file needs to be modified to match your
+system.
 
-Additional discs can be configured for any of these roles by editing the corresponding ***./data/disks_*.yml*** file
+### Local Storage
 
+All nodes should present a single OS disk, protected by a RAID controller.
+The disk needs to be at least 512GB in capacity. In addition, the example
+configures additional disk depending on the node's role:
+
+- CONTROLLER-ROLE: `/dev/sdb` is configured to be used by Swift.
+
+- COMPUTE-ROLE: `/dev/sdb` is configured as an additional Volume Group to be
+  used for VM storage.
+
+Additional disks can be configured for any of the roles by editing the
+corresponding `data/disks_*.yml` file.
