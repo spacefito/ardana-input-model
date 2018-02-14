@@ -45,43 +45,63 @@ pass-through:
         # The location of the resource configuration file
         vc_net_resources: <resource-configuration-file>
 
-  servers:
-    -
-      # Here the 'id' refers to the name of the node running the
-      # esx-compute-proxy. This is identical to the 'servers.id' in
-      # servers.yml.
-      # NOTE: There should be one esx-compute-proxy node per ESX
-      # resource pool or cluster.
-      # cluster_dvs_mapping in the format
-      # 'Datacenter-name/host/Cluster-Name:Trunk-DVS-Name'
-      # Here 'host' is a string and should not be changed or
-      # substituted.
-      # vcenter_id is same as the 'vcenter-uuid' obtained in the global
-      # section.
-      # 'id': is the name of the appliance manually installed
-      # 'vcenter_cluster': Name of the vcenter target cluster
-      # esx_hostname: Name of the esx host hosting the ovsvapp
-      # NOTE: For every esx host in a cluster there should be an ovsvapp
-      # instance running.
 
-      id: esx-compute1
-      data:
-        vmware:
-          vcenter_cluster: <vmware cluster1 name>
-          vcenter_id: <vcenter-uuid>
-    -
-      id: ovsvapp1
-      data:
-        vmware:
-          vcenter_cluster: <vmware cluster1 name>
-          cluster_dvs_mapping: <cluster dvs mapping>
-          esx_hostname: <esx hostname hosting the ovsvapp>
-          vcenter_id: <vcenter-uuid>
-    -
-      id: ovsvapp2
-      data:
-        vmware:
-          vcenter_cluster: <vmware cluster1 name>
-          cluster_dvs_mapping: <cluster dvs mapping>
-          esx_hostname: <esx hostname hosting the ovsvapp>
-          vcenter_id: <vcenter-uuid>
+
+    # The below 'servers' section is used to define variables for
+    # the various esx-compute-proxy and esx-ovsvapp appliances.
+    #
+    # The 'id' refers to the name of the node (ESX hypervisor) running the
+    # esx-compute-proxy. This is identical to the 'servers.id' in
+    # servers.yml. There should be one esx-compute-proxy node per ESX
+    # resource pool or cluster.
+    #
+    # cluster_dvs_mapping should be of the format:
+    # 'Datacenter-name/host/Cluster-Name:Trunk-DVS-Name',
+    # where 'host' is the actual string 'host' and should not be changed or
+    # substituted.
+    #
+    # vcenter_id is the same as the 'vcenter-uuid' obtained in the global
+    # section.
+    #
+    # 'id': is the name of the appliance manually installed, 'ovsvapp1' for
+    # example.
+    #
+    # 'vcenter_cluster': Name of the vcenter target cluster
+    #
+    # esx_hostname: hostname of the esx hypervisor hosting the ovsvapp
+    # appliance
+    #
+    # NOTE: For every esx host in a cluster there should be an ovsvapp
+    # instance running.
+
+    # Once the esx-compute-proxy and  esx-ovsvapp appliances
+    # have been deployed, and the appropriate DVS and DVPGS
+    # have been created, add the information for exs-compute-proxy
+    # and esx-ovsvapp below.  There should be one ovsvapp per
+    # ESX hypervisor, and one esx-compute-proxy per Vmware cluster
+
+
+# Only uncomment below this line
+#  servers:
+    #-
+    #  id: esx-compute1
+    #  data:
+    #    vmware:
+    #      vcenter_cluster: <vmware cluster1 name>
+    #      vcenter_id: <vcenter-uuid>
+    #-
+    #  id: ovsvapp1
+    #  data:
+    #    vmware:
+    #      vcenter_cluster: <vmware cluster1 name>
+    #     cluster_dvs_mapping: <cluster dvs mapping>
+    #      esx_hostname: <esx hostname hosting the ovsvapp>
+    #      vcenter_id: <vcenter-uuid>
+    #-
+    #  id: ovsvapp2
+    #  data:
+    #    vmware:
+    #      vcenter_cluster: <vmware cluster1 name>
+    #      cluster_dvs_mapping: <cluster dvs mapping>
+    #      esx_hostname: <esx hostname hosting the ovsvapp>
+    #      vcenter_id: <vcenter-uuid>
