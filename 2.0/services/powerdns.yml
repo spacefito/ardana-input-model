@@ -33,6 +33,15 @@ service-components:
     -   name: powerdns-ext
         scope: host
 
+    config-set:
+    -   name: FND-PDN
+        ansible-vars:
+        -   name: pdns_api_key
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
+
     consumes-services:
     -   service-name: FND-MDB
         relationship-vars:
