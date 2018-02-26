@@ -139,20 +139,26 @@
     # The values shown below are examples and has to be
     # substituted based on your setup.
 
+    # Once the esx-compute-proxy esx-ovsvapp appliances
+    # have been deployed, and the appropriate DVS and DVPGS
+    # have been created, add the information for exs-compute-proxy
+    # and esx-ovsvapp below.  There should be one ovsvapp per
+    # ESX hypervisor, and one esx-compute-proxy per Vmware cluster
+
     # Nova Compute proxy node
-    - id: esx-compute1
-      server-group: RACK1
-      ip-addr: 192.168.110.110
-      role: ESX-COMPUTE-ROLE
+    #- id: esx-compute1
+    #  server-group: RACK1
+    #  ip-addr: 192.168.110.110
+    #  role: ESX-COMPUTE-ROLE
 
     # OVSVAPP node
-    - id: ovsvapp1
-      server-group: RACK1
-      ip-addr: 192.168.110.111
-      role: OVSVAPP-ROLE
+    #- id: ovsvapp1
+    #  server-group: RACK1
+    #  ip-addr: 192.168.110.111
+    #  role: OVSVAPP-ROLE
 
-    - id: ovsvapp2
-      server-group: RACK1
-      ip-addr: 192.168.110.112
-      role: OVSVAPP-ROLE
+    #- id: ovsvapp2
+    #  server-group: RACK1
+    #  ip-addr: 192.168.110.112
+    #  role: OVSVAPP-ROLE
 
