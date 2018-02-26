@@ -15,15 +15,15 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Entry Scale Cloud
+## Entry Scale KVM Cloud
 
-This example deploys an entry scale cloud.
+This example input model deploys an entry scale cloud with KVM Hypervisor.
 
 ### Control Plane
 
 - Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
-  services, such as keystone, nova api, glance api, neutron api, horizon,
-  heat api, etc...
+  services such as Keystone, Nova, Glance, Neutron, Horizon, Heat,
+  Ceilometer, block storage, and object storage.
 
 ### Lifecycle Manager
 
@@ -33,10 +33,10 @@ This example deploys an entry scale cloud.
 
 ### Resource Nodes
 
-- Compute: One node of type COMPUTE-ROLE runs Nova Compute and associated
-  services.
+- Compute: One node of type COMPUTE-ROLE runs nova-compute and other
+  supporting services.
 
-- Object Storage: Minimal Swift Resources are provided by the control plane.
+- Object Storage: Minimal Swift resources are provided by the control plane.
 
   *Additional resource nodes can be added to the configuration.*
 
@@ -46,9 +46,6 @@ This example requires the following networks:
 
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all servers.
-
-  _Nodes require a pair of bonded NICs which are used by the following
-  networks:_
 
 - External API - This is the network that users will use to make requests to
   the cloud.
@@ -71,19 +68,19 @@ The file needs to be modified to reflect your environment.
 
 The example uses the devices `hed3` & `hed4` as a bonded network interface
 for all services. The name given to a network interface by the system is
-configured in the file `data/net_interfaces.yml`.
-That file needs to be edited to match your system.
+configured in the file `data/net_interfaces.yml`. That file needs to be edited
+to match your system.
 
 ### Local Storage
 
 All servers should present a single OS disk, protected by a RAID controller.
-This disk needs to be at least 512GB in capacity.   In addition the example
-configures one additional disk depending on the role of the server:
+This disk needs to be at least 512GB.   In addition the example configures one
+additional disk depending on the role of the server:
 
 - Controllers:  `/dev/sdb` is configured to be used by Swift
 
-- Compute Severs:  `/dev/sdb` is configured as an additional Volume Group to be
+- Compute Servers:  `/dev/sdb` is configured as an additional Volume Group to be
   used for VM storage
 
-Additional discs can be configured for any of these roles by editing
+Additional disks can be configured for any of these roles by editing
 the corresponding `data/disks_*.yml` file

@@ -15,16 +15,16 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Single region Entry Scale Cloud with a mix of KVM & ESX Hypervisors
+## Entry Scale Cloud with a Mix of KVM & ESX Hypervisors
 
-This example deploys a cloud which mixes KVM and ESX hypervisors. The deployed
-cloud environment.
+This example input model deploys an entry scale, single region cloud that has
+both KVM and ESX hypervisors.
 
 ### Control Plane
 
 - Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
-  services, such as keystone, nova api, glance api, neutron api, horizon,
-  heat api, etc...
+  services such as Keystone, Nova, Glance, Neutron, Horizon, Heat, Ceilometer,
+  block storage, and object storage.
 
 ### Lifecycle Manager
 
@@ -35,7 +35,7 @@ cloud environment.
 ### Resource Nodes
 
 - Compute:
-    - KVM: Runs nova computes and associated services. Runs on nodes of role
+    - KVM: Runs nova-compute and associated services. Runs on nodes of role
            type COMPUTE-ROLE.
     - ESX: Provides ESX compute services. OS and software on this node is
            to be installed by user.
@@ -47,12 +47,11 @@ cloud environment.
 2. *User needs to deploy the ovsvapp network resources using the
  neutron-create-ovsvapp-resources.yml playbook*
 
-   The following DVS and DVPGs
-   need to be created and configured for each cluster in each ESX hypervisor
-   that will host an OvsVapp appliance. The settings for each DVS
-   and DVPG are particular to your system and network policies. A json file
-   example is provided in the documentation, but it will have to be edited
-   to match your requirements.
+   The following DVS and DVPGs need to be created and configured for each
+   cluster in each ESX hypervisor that will host an OvsVapp appliance. The
+   settings for each DVS and DVPG are particular to your system and network
+   policies. A json file example is provided in the documentation, but it will
+   have to be edited to match your requirements.
 
    - ESX-CONF (DVS and DVPG) connected to ovsvapp eth0 and compute-proxy eth0
 
@@ -73,10 +72,7 @@ cloud environment.
 This example requires the following networks:
 
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
-  of all nodes, except the ESX hypervisors.
-
-  _Nodes require a pair of bonded NICs which are used by the following
-  networks:_
+  of all nodes except the ESX hypervisors.
 
 - External API - This is the network that users will use to make requests to
   the cloud.
@@ -110,8 +106,8 @@ system.
 ### Local Storage
 
 All nodes should present a single OS disk, protected by a RAID controller.
-The disk needs to be at least 512GB in capacity. In addition, the example
-configures additional disk depending on the node's role:
+The disk needs to be at least 512GB. In addition, the example configures
+additional disks depending on the node's role:
 
 - CONTROLLER-ROLE: `/dev/sdb` is configured to be used by Swift.
 
