@@ -15,22 +15,22 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Entry Scale Cloud with Metering & Monitoring services
+## Entry Scale KVM Cloud with Metering & Monitoring Services
 
-This example deploys an entry scale cloud that provides Metering &
-Monitoring services, and runs the database and messaging services in
+This input model example deploys an entry scale KVM cloud that provides
+Metering & Monitoring services and runs the database and messaging services in
 their own cluster.
 
 ### Control Plane
 
-- Cluster1: 2 nodes of type CONTROLLER-ROLE run the core OpenStack
-  services, such as keystone, nova api, glance api, neutron api, horizon,
-  heat api, etc...
+- Cluster1: 2 nodes of type CONTROLLER-ROLE run the core OpenStack services
+  such as Keystone, Nova, Glance, Neutron, Horizon, Heat, Ceilometer,
+  block storage, and object storage.
 
-- Cluster2: 3 nodes of type MTRMON-ROLE, run the OpenStack services for
+- Cluster2: 3 nodes of type MTRMON-ROLE run the OpenStack services for
   metering & monitoring (e.g. ceilometer, monasca & logging).
 
-- Cluster3: 3 nodes of type DBMQ-ROLE, run clustered database and RabbitMQ
+- Cluster3: 3 nodes of type DBMQ-ROLE run clustered database and RabbitMQ
   services to support the cloud infrastructure. Three nodes are required for
   high availability.
 
@@ -56,9 +56,6 @@ This example requires the following networks:
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all servers.
 
-  _Nodes require a pair of bonded NICs which are used by the following
-  networks:_
-
 - External API - This is the network that users will use to make requests to
   the cloud.
 
@@ -75,27 +72,27 @@ This example requires the following networks:
 The EXTERNAL\_API network must be reachable from the EXTERNAL\_VM
 network for VMs to be able to make API calls to the cloud.
 
-An example set of networks is defined in `data/networks.yml`.
-The file needs to be modified to reflect your environment.
+An example set of networks is defined in `data/networks.yml`. The file needs to
+be modified to reflect your environment.
 
 The example uses the devices `hed3` & `hed4` as a bonded network interface
 for all services. The name given to a network interface by the system is
-configured in the file `data/net_interfaces.yml`.
-That file needs to be edited to match your system.
+configured in the file `data/net_interfaces.yml`. That file needs to be edited
+to match your system.
 
 ### Local Storage
 
 All servers should present a single OS disk, protected by a RAID controller.
-This disk needs to be at least 512GB in capacity.   In addition the example
-configures one additional disk depending on the role of the server:
+This disk needs to be at least 512GB.   In addition the example configures one
+additional disk depending on the role of the server:
 
-- Core Controllers:  `/dev/sdb` and `/dev/sdc` are configured to be used by Swift.
+- Core Controllers: `/dev/sdb` and `/dev/sdc` are configured for use by Swift.
 
-- DBMQ Controllers:  `/dev/sdb` is configured as an additional Volume group to be
-  used by the database and RabbitMQ.
+- DBMQ Controllers:  `/dev/sdb` is configured as an additional Volume group to
+  be used by the database and RabbitMQ.
 
 - Compute Severs:  `/dev/sdb` is configured as an additional Volume Group to be
   used for VM storage.
 
-Additional discs can be configured for any of these roles by editing
-the corresponding `data/disks_*.yml` file
+Additional disks can be configured for any of these roles by editing the
+corresponding `data/disks_*.yml` file

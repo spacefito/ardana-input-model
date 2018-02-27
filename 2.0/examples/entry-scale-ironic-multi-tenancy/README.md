@@ -15,17 +15,17 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Entry Scale Cloud with Ironic multi tenancy
+## Entry Scale Cloud with Ironic Multi-tenancy
 
-This example deploys an entry scale cloud that uses the Ironic service to
-provision physical machines through the Compute services API and supports
-multi tenancy.
+This example input model deploys an entry scale cloud that uses the Ironic
+service to provision physical machines through the Compute services API and
+supports multi-tenancy.
 
 ### Control Plane
 
 - Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
-  services, such as keystone, nova api, glance api, neutron api, horizon,
-  heat api, etc...
+  services such as Keystone, Nova, Glance, Neutron, Horizon, Heat,
+  Ceilometer, block storage, and object storage.
 
 ### Lifecycle Manager
 
@@ -35,7 +35,7 @@ multi tenancy.
 
 ### Resource Nodes
 
-- Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs the nova-compute,
+- Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs nova-compute,
   nova-compute-ironic and other supporting services.
 
 - Object Storage: Minimal Swift Resources are provided by the control plane.
@@ -63,7 +63,7 @@ This example requires the following networks:
 
 - Tenant VLANs - The range of VLAN IDs should be reserved for use by Ironic and
   set in the cloud configuration. It is configured as untagged on control plane
-  nodes, therefore it can't be combined with Management network on the same
+  nodes, therefore it cannot be combined with Management network on the same
   network interface.
 
 The following access should be allowed by routing/firewall:
@@ -74,16 +74,15 @@ The following access should be allowed by routing/firewall:
 - Access from Management network to switch management network. Used by neutron
   driver.
 
-- EXTERNAL\_API network must be reachable from the tenant networks if you
-  want bare metal nodes to be able to make API calls to the cloud.
+- EXTERNAL\_API network must be reachable from the tenant networks for bare
+  metal nodes to be able to make API calls to the cloud.
 
 This example's set of networks is defined in `data/networks.yml`. You will
 need to modify this file to reflect your environment.
 
 The example uses `hed3` for Management and External API traffic, and `hed4` for
-provisioning and tenant network traffic. If you need to modify these
-assignments for your environment, they are defined in
-`data/net_interfaces.yml`.
+provisioning and tenant network traffic. If these assignments need to be
+modified for your environment, they are defined in `data/net_interfaces.yml`.
 
 The name given to a network interface by the system is configured in the file
 `data/net_interfaces.yml`. That file needs to be modified to match your
@@ -92,8 +91,8 @@ system.
 ### Local Storage
 
 All nodes should present a single OS disk, protected by a RAID controller.
-This disk needs to be at least 512GB in capacity. In addition, the example
-configures additional disk depending on the node's role:
+This disk needs to be at least 512GB. In addition, the example
+configures additional disks depending on the node's role:
 
 - CONTROLLER-ROLE:  `/dev/sdb` and `/dev/sdc` are configured to be used by Swift
 

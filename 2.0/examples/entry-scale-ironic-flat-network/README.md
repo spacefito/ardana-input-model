@@ -17,14 +17,14 @@ under the License.
 
 ## Entry Scale Cloud with Ironic
 
-This example deploys an entry scale cloud that uses the Ironic service to
-provision physical machines through the Compute services API.
+This example input model deploys an entry scale cloud that uses the Ironic
+service to provision physical machines through the Compute services API.
 
 ### Control Plane
 
 - Cluster1: 3 nodes of type CONTROLLER-ROLE run the core OpenStack
-  services, such as keystone, nova api, glance api, neutron api, horizon,
-  heat api, etc...
+  services such as Keystone, Nova, Glance, Neutron, Horizon,
+  Heat, Ceilometer, block storage, and object storage.
 
 ### Lifecycle Manager
 
@@ -34,7 +34,7 @@ provision physical machines through the Compute services API.
 
 ### Resource Nodes
 
-- Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs the nova-compute,
+- Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs nova-compute,
   nova-compute-ironic and other supporting services.
 
 - Object Storage: Minimal Swift resources are provided by the control plane.
@@ -46,9 +46,6 @@ This example requires the following networks:
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all nodes.
 
-  _Nodes require a pair of bonded NICs which are used by the following
-  networks:_
-
 - External API - This is the network that users will use to make requests to
   the cloud.
 
@@ -58,14 +55,14 @@ This example requires the following networks:
   VLAN.
 
 - Guest - This is the flat network that will carry traffic between bare metal
-  instances within the cloud. It is also used to PXE boot said bare metal
+  instances within the cloud. It is also used to PXE boot these bare metal
   instances and install the operating system selected by tenants.
 
 The EXTERNAL\_API network must be reachable from the GUEST network for the
 bare metal instances to make API calls to the cloud.
 
 This example's set of networks is defined in `data/networks.yml`.
-The file needs to be modified to reflect your environment.
+This file needs to be modified to reflect your environment.
 
 This example uses `hed3` & `hed4` as a bonded network interface for all nodes.
 The name given to a network interface by the system is configured in the file
@@ -75,10 +72,10 @@ system.
 ### Local Storage
 
 All nodes should present a single OS disk, protected by a RAID controller.
-The disk needs to be at least 512GB in capacity. In addition, the example
-configures additional disk depending on the node's role:
+The disk needs to be at least 512GB. In addition, the example
+configures additional disks depending on the node's role:
 
-- CONTROLLER-ROLE:  `/dev/sdb` and `/dev/sdc` are configured to be used by Swift
+  CONTROLLER-ROLE: `/dev/sdb` and `/dev/sdc` are configured to be used by Swift.
 
 Additional disks can be configured for any of the roles by editing the
 corresponding `data/disks_*.yml` file.

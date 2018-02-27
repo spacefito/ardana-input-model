@@ -15,20 +15,20 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Single Region Mid-Size model
+## Mid-Size KVM Cloud
 
-The mid-size model is intended as a template for a moderate sized cloud.
+This example input model is intended as a template for a moderately sized cloud.
 The Control plane is made up of multiple server clusters to provide sufficient
-computational, network and IOPS capacity for a mid-size production style cloud.
+computational, network and IOPS capacity for a mid-sized production style cloud.
 
 ### Control plane
 
-- Core cluster: Runs Core OpenStack Services, (e.g. keystone, nova api, glance
-  api, neutron api, horizon, heat api). Default configuration is two nodes of
-  role type CORE-ROLE.
+- Core cluster: Runs Core OpenStack services, (Keystone, Nova, Glance, Neutron,
+  Horizon, Heat, Ceilometer, block storage, and object storage). The default
+  configuration is two nodes of role type CORE-ROLE.
 
 - Metering & Monitoring cluster: Runs the OpenStack Services for metering
-  & monitoring (e.g. ceilometer, monasca & logging). Default configuration is
+  & monitoring (ceilometer, monasca & logging). Default configuration is
   three nodes of role type MTRMON-ROLE.
 
 - Database & Message Queue Cluster: Runs clustered MariaDB and RabbitMQ
@@ -50,15 +50,15 @@ computational, network and IOPS capacity for a mid-size production style cloud.
 
 ### Resource Nodes
 
-- Compute: Runs Nova Compute and associated services. Runs on nodes of role
+- Compute: Runs nova-compute and associated services. Runs on nodes of role
   type COMPUTE-ROLE. This model lists 3 nodes. One node is the minimum
   requirement.
 
 - Object storage: 3 nodes of type SOWBJ-ROLE run the Swift Object service.
   The minimum node count should match your Swift replica count.
 
-The minimum node count required to run this model un-modified is 19 nodes.
-This can be reduced by consolidating services on the control plane clusters.
+Nineteen (19) nodes are required to run this model unmodified. This can be
+reduced by consolidating services on the control plane clusters.
 
 ### Networking
 
@@ -66,8 +66,6 @@ This model requires the following networks:
 
 - IMPI/iLO network, connected to the lifecycle-manager and the IPMI/iLO ports
   of all nodes.
-
-_A pair of bonded NICs are used by the following networks:_
 
 - External API - This is the network that users will use to make requests to
   the cloud.
@@ -89,36 +87,36 @@ _A pair of bonded NICs are used by the following networks:_
   Swift nodes.
 
 The EXTERNAL-API network must be reachable from the EXTERNAL-VM network if you
-want VMs to be able to make  API calls to the cloud.
+want VMs to be able to make API calls to the cloud.
 
-An example set of networks is defined in **data/networks.yml**. You will need
+An example set of networks is defined in `data/networks.yml`. You will need
 to modify this file to reflect your environment.
 
 The example uses `hed3` for the install network interface and `hed4` & `hed5`
 for the bonded network interface. If you need to modify these for your
-environment use the file **data/net_interfaces.yml**.
+environment use the file `data/net_interfaces.yml`.
 
 ### Adapting the mid-size model to fit your environment
 
 The minimum set of changes you need to make to adapt the model for your
 environment are:
 
-- Update servers.yml to list the details of your bare metal servers.
+- Update `servers.yml` to list the details of your bare metal servers.
 
-- Update the networks.yml file to replace network CIDRs and VLANs with site
+- Update the `networks.yml` file to replace network CIDRs and VLANs with site
   specific values.
 
-- Update the nic_mappings.yml file to ensure that network devices are mapped to
-  the correct physical port(s).
+- Update the `nic_mappings.yml` file to ensure that network devices are mapped
+  to the correct physical port(s).
 
-- Review the disk models (disks_*.yml) and confirm that the associated servers
+- Review the disk models (`disks_*.yml`) and confirm that the associated servers
   have the number of disks required by the disk model. The device names in the
   disk models might need to be adjusted to match the probe order of your
   servers. The default number of disks for the Swift nodes (3 disks) is set low
   on purpose to facilitate deployment on generic hardware. For production scale
-  Swift the servers should have more disks, e.g. 6 on SWPAC nodes and 12 on
-  SWOBJ nodes. If you allocate more Swift disks then you should review the ring
-  power in the Swift ring configuration. This is documented in the Swift
+  Swift the servers should have more disks: 6 on SWPAC nodes and 12 on SWOBJ
+  nodes. If you allocate more Swift disks then you should review the ring power
+  in the Swift ring configuration. This is documented in the Swift
   section. Disk models are provided as follows:
 
      * DISK SET CONTROLLER: Minimum 1 disk
@@ -127,7 +125,7 @@ environment are:
      * DISK SET SWPAC: Minimum 3 disks
      * DISK SET SWOBJ: Minimum 3 disks
 
-- Update the net interfaces.yml file to match the server NICs used in your
+- Update the `net_interfaces.yml` file to match the server NICs used in your
   configuration. This file has a separate interface model definition for each
   of the following:
 

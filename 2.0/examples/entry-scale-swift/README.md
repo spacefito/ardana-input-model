@@ -15,9 +15,9 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-## Entry Scale Swift
+## Entry Scale Swift Cloud
 
-Deploys an entry scale swift environment.
+This example input model deploys an entry scale Swift environment.
 
 ### Control Planes
 
@@ -43,9 +43,6 @@ This example requires the following networks:
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all servers.
 
-  _Nodes require a pair of bonded NICs which are used by the following
-  networks:_
-
 - External API - This is the network that users will use to make requests to
   the cloud.
 
@@ -57,8 +54,8 @@ This example requires the following networks:
 - SWIFT - This network is used for internal Swift communications between the
   Swift servers.
 
-An example set of networks is defined in `data/networks.yml`.
-The file needs to be modified to reflect your environment.
+An example set of networks is defined in `data/networks.yml`, which needs to be
+modified to reflect your environment.
 
 The example uses the devices `hed3` & `hed4` as a bonded network interface
 for all services. The name given to a network interface by the system is
@@ -68,15 +65,14 @@ edited to match your system.
 ### Local Storage
 
 All servers should present a single OS disk, protected by a RAID controller.
-This disk needs to be at least 512GB in capacity. In addition the example
-configures additional disks depending on the role of the server:
+This disk needs to be at least 512GB. In addition the example configures
+additional disks depending on the role of the server:
 
 - Controllers:  `/dev/sdb` and `/dev/sdc` are configured to be used by
   Swift account and container services
 
-- Object Servers:  `/dev/sdb`, `/dev/sdc`, `/dev/sdd` and `/dev/sde` are configured to
-  be used by the Swift object service.
+- Object Servers:  `/dev/sdb`, `/dev/sdc`, `/dev/sdd` and `/dev/sde` are
+  configured to be used by the Swift object service.
 
 Additional disks can be configured for any of these roles by editing the
 corresponding `data/disks_*.yml` file.
-
