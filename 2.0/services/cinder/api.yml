@@ -79,7 +79,7 @@ service-components:
         has-vip: true
         vip-options:
         - "mode http"
-        - "option httpchk GET /"
+        - "option httpchk GET /healthcheck"
         - "option forwardfor"
         - "reqadd X-Forwarded-Proto:\\ https if { ssl_fc }"
         roles:
