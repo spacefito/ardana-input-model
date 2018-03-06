@@ -38,7 +38,7 @@ service-components:
     -   port: '9085'
         has-vip: true
         vip-options:
-        - "option httpchk GET /api/v2/heartbeat"
+        - "option httpchk GET /healthcheck"
         - "option redispatch"
         roles:
         - internal
