@@ -1,6 +1,6 @@
 #
 # (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-# (c) Copyright 2017 SUSE LLC
+# (c) Copyright 2017-2018 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -95,6 +95,9 @@ service-components:
         - "balance leastconn"
         - "mode http"
         - "option httpchk GET /"
+        - "acl network_allowed src {{ host.my_network_groups.MANAGEMENT | selectattr('cidr') | map(attribute='cidr') | join('') }}"
+        - "acl restricted_page path_beg /server-status"
+        - "block if restricted_page !network_allowed"
         - "option redispatch"
         - "option http-server-close"
         - "option forwardfor"
