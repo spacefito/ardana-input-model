@@ -82,7 +82,6 @@
             - octavia-health-manager
             - ntp-server
             - ops-console-web
-            - ops-console-monitor
             - barbican-api
             - barbican-client
             - barbican-worker

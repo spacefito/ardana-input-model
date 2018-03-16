@@ -130,7 +130,6 @@
             - heat-api-cloudwatch
             - heat-engine
             - ops-console-web
-            - ops-console-monitor
             - barbican-api
             - barbican-worker
             - designate-api
