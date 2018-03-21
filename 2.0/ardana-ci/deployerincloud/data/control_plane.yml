@@ -99,7 +99,6 @@
             - monasca-transform
             - logging-server
             - ops-console-web
-            - ops-console-monitor
             - freezer-api
             - barbican-api
             - barbican-worker

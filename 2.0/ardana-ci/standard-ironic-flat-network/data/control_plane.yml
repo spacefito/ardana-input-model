@@ -96,7 +96,6 @@
             - monasca-threshold
             - logging-server
             - ops-console-web
-            - ops-console-monitor
             - freezer-api
             - monasca-agent
             - barbican-api
