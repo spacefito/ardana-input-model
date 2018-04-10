@@ -41,6 +41,13 @@ service-components:
             properties:
                 max-length: 12
                 min-length: 8
+        -   name: keystone_monasca_read_only_user
+            value: monasca_read_only
+        -   name: keystone_monasca_read_only_password
+            value: '%random-password%'
+            properties:
+                max-length: 12
+                min-length: 8
 
     -   service-name: FND-KFK
 
