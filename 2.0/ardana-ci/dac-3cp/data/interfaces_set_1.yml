@@ -39,13 +39,13 @@
              provider: linux
              devices:
                - name: hed1
-               - name: hed3
+               - name: hed4
           network-groups:
             - MANAGEMENT
 
-        - name: hed4
+        - name: hed3
           device:
-            name: hed4
+            name: hed3
           network-groups:
             - EXTERNAL-API
             - EXTERNAL-VM
