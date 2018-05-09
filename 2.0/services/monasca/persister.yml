@@ -59,6 +59,11 @@ service-components:
         -   name: cassandra_datacenter_identifier
             value: dc1
 
+        # cassandra replication factor for monasca keyspace, default to 2.
+        # will be capped by the number of cassandra nodes.
+        -   name: cassandra_max_replication_factor
+            value: 2
+
     -   service-name: FND-KFK
     -   service-name: FND-ZOO
 
