@@ -86,4 +86,4 @@ service-components:
         data:
           - option: compute_driver
             values:
-              - vmwareapi.VMwareVCDriver
+              - vmwareapi.ovsvapp_vc_driver.OVSvAppVCDriver
