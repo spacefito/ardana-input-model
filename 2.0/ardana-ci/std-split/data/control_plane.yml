@@ -85,6 +85,7 @@
             - monasca-client
             - barbican-client
             - ntp-server
+            - manila-client
 
         - name: openstack-core
           cluster-prefix: osc
@@ -140,6 +141,7 @@
             - bind
             - magnum-api
             - magnum-conductor
+            - manila-api
 
         - name: dbmq
           cluster-prefix: dbmq
@@ -198,3 +200,4 @@
             - neutron-metadata-agent
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
+            - manila-share

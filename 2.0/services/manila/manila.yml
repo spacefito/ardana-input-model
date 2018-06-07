@@ -1,0 +1,60 @@
+#
+# (c) Copyright 2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2018 SUSE LLC
+#
+# Confidential computer software. Valid license from HPE required for
+# possession, use or copying. Consistent with FAR 12.211 and 12.212,
+# Commercial Computer Software, Computer Software Documentation, and
+# Technical Data for Commercial Items are licensed to the U.S.
+# Government under vendor's standard commercial license.
+#
+---
+product:
+    version: 2
+
+services:
+-   name: manila
+    mnemonic: MNL
+    service-class: share
+    description: "File Share Service"
+
+    consumes-services:
+    -   service-name: FND-RMQ
+        relationship-vars:
+        -   name: accounts
+            vars:
+                manila:
+                -   name: username
+                    value: rmq_manila_user
+                -   name: password
+                    value: '%random-password%'
+                    properties:
+                        max-length: 12
+                        min-length: 8
+                        key-name: rmq_manila_password
+
+    -   service-name: FND-MDB
+        relationship-vars:
+        -   name: accounts
+            vars:
+                manila:
+                -   name: username
+                    alias: mysql_manila_user
+                    value: manila
+                -   name: password
+                    alias: mysql_manila_password
+                    value: '%random-password%'
+                    properties:
+                        max-length: 12
+                        min-length: 8
+                        key-name: mysql_manila_password
+                -   name: grants
+                    value:
+                        - priv: .*:ALL,GRANT
+                          dbname: manila
+        -   name: databases
+            vars:
+                manila:
+                -   name: dbname
+                    value: manila
+

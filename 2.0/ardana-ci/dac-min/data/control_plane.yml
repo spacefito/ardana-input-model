@@ -86,6 +86,7 @@
             - swift-client
             - monasca-client
             - barbican-client
+            - manila-client
             # end of service clients
 
             - swift-ring-builder
@@ -153,6 +154,7 @@
             - bind
             - magnum-api
             - magnum-conductor
+            - manila-api
 
       resources:
         - name: compute
@@ -167,3 +169,4 @@
             - neutron-metadata-agent
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
+            - manila-share

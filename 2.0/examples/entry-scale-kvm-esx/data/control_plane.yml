@@ -119,6 +119,8 @@
             - bind
             - magnum-api
             - magnum-conductor
+            #- manila-api
+            #- manila-client
 
       resources:
         - name: compute
@@ -132,6 +134,7 @@
             - nova-compute-kvm
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
+            #- manila-share
 
         - name: esx-compute
           resource-prefix: esx-comp
