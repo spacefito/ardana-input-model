@@ -94,6 +94,8 @@
             - bind
             - magnum-api
             - magnum-conductor
+            #- manila-api
+            #- manila-client
 
         - name: mtrmon
           cluster-prefix: mtrmon
@@ -172,6 +174,7 @@
             - neutron-metadata-agent
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
+            #- manila-share
 
         - name: swobj
           resource-prefix: swobj

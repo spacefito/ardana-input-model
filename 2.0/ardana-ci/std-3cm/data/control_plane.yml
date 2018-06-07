@@ -85,6 +85,7 @@
             - monasca-client
             - barbican-client
             - ntp-client
+            - manila-client
 
         - name: cluster1
           cluster-prefix: c1
@@ -158,6 +159,7 @@
             - bind
             - magnum-api
             - magnum-conductor
+            - manila-api
 
       resources:
         - name: compute
@@ -172,3 +174,4 @@
             - neutron-metadata-agent
             - neutron-openvswitch-agent
             - neutron-lbaasv2-agent
+            - manila-share
