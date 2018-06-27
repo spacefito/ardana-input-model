@@ -105,6 +105,7 @@
             - swift-account
             - swift-container
             - swift-object
+            - tempest
 
       resources:
         - name: compute
