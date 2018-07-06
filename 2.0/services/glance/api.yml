@@ -1,6 +1,6 @@
 #
 # (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-# (c) Copyright 2017 SUSE LLC
+# (c) Copyright 2017,2018 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -40,6 +40,10 @@ service-components:
             value: 'swift'
         -   name: glance_default_store
             value: 'swift'
+        # Set default rate limit for GLA-API to address CVE-2016-8611
+        -   name: glance_rate_limit
+            value: 600
+
 
     consumes-services:
     -   service-name: FND-MDB
@@ -92,6 +96,21 @@ service-components:
         has-vip: true
         vip-options:
         - "option httpchk GET /healthcheck"
+        - "log /dev/log local0 info"
+        - "option httplog"
+        - "option dontlog-normal"
+
+        # Apply glance rate limit to GLA-API to address CVE-2016-8611
+
+        - "mode http"
+        - "stick-table type ip size 200k expire 1h store gpc0_rate(60m)"
+        - "http-request track-sc0 src"
+        - "http-request sc-inc-gpc0(0) if METH_POST"
+
+        # Blocks "POST request" rate abusers
+
+        - "http-request deny deny_status 429 if METH_POST { sc0_gpc0_rate gt  {{ GLA_API.vars.glance_rate_limit }} }"
+
         roles:
         - public
         - internal
