@@ -81,10 +81,14 @@
     # NOTE: Even though we have configured the SWAP partition, it is
     # not required to be configured in here. Just configure the root
     # and the LV_CRASH partition
+    # /dev/sda_root is used as a Volume Group for /, /var/log, and /var/crash
+    # sda_root is a templated value to align with whatever partition is really used
+    # This value is checked in os config and replaced by the partition actually used
+    # on sda e.g. sda1 or sda5
     volume-groups:
       - name: system
         physical-volumes:
-         - /dev/sda1
+         - /dev/sda_root
         logical-volumes:
           - name: root
             size: 75%
