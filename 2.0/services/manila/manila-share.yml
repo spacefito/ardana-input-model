@@ -57,8 +57,3 @@ service-components:
         optional: true
     -   service-name: MNL-API
         optional: true
-
-    requires:
-    # Needed for keystone registration of service.
-    - name: keystone-client
-      scope: host
