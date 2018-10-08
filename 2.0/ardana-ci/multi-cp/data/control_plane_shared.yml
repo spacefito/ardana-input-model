@@ -30,7 +30,6 @@
         - SWIFT-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
-        - freezer-agent
         - stunnel
         - monasca-agent
         - logging-rotate
@@ -110,7 +109,6 @@
             - monasca-transform
             - logging-server
             - ops-console-web
-            - freezer-api
             - barbican-api
             - barbican-worker
             - designate-api

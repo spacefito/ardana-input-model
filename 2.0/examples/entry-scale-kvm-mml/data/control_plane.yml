@@ -35,7 +35,6 @@
         - logging-rotate
         - logging-producer
         - monasca-agent
-        - freezer-agent
         - stunnel
         - lifecycle-manager-target
       clusters:
@@ -131,7 +130,6 @@
             - monasca-client
             - monasca-transform
             - logging-server
-            - freezer-api
 
         - name: cluster3
           cluster-prefix: c3

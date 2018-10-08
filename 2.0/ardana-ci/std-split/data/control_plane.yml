@@ -32,7 +32,6 @@
         - NEUTRON-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
-        - freezer-agent
         - stunnel
         - monasca-agent
         - logging-rotate
@@ -163,11 +162,6 @@
           allocation-policy: strict
           service-components:
             - ntp-client
-
-            # freezer-api shares elastic-search with logging-server
-            # so must be co-located with it
-            - freezer-api
-
             - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification

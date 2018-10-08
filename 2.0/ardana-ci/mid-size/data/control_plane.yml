@@ -35,7 +35,6 @@
         - logging-rotate
         - logging-producer
         - monasca-agent
-        - freezer-agent
         - stunnel
         - lifecycle-manager-target
       clusters:
@@ -105,12 +104,7 @@
             - cassandra
             - kafka
             - spark
-
-            # Freezer-api need to be installed on same node as logging-server
-            # as they share elasticsearch
-            - freezer-api
             - logging-server
-
             - storm
             - monasca-api
             - monasca-persister

@@ -29,7 +29,6 @@
       configuration-data:
         - SWIFT-CONFIG-CP1
       common-service-components:
-        - freezer-agent
         - logging-rotate
         - logging-producer
         - monasca-agent
@@ -70,7 +69,6 @@
             - monasca-transform
             - logging-server
             - ops-console-web
-            - freezer-api
             - swift-ring-builder
             - swift-proxy
             - swift-account

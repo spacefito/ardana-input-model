@@ -29,7 +29,6 @@
         - NEUTRON-CONFIG-ESX
       common-service-components:
         - lifecycle-manager-target
-        - freezer-agent
         - stunnel
         - monasca-agent
         - logging-producer
@@ -79,7 +78,6 @@
             - monasca-threshold
             - monasca-transform
             - logging-server
-            - freezer-api
             - apache2
 
       resources:

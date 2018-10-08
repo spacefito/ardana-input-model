@@ -27,7 +27,6 @@
         - NEUTRON-CONFIG-CP1
       common-service-components:
         - lifecycle-manager-target
-        - freezer-agent
         - logging-rotate
         - logging-producer
         - monasca-agent
@@ -99,7 +98,6 @@
             - monasca-transform
             - logging-server
             - ops-console-web
-            - freezer-api
             - barbican-api
             - barbican-worker
             - designate-api

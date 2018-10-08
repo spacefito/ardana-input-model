@@ -33,7 +33,6 @@
       common-service-components:
         - lifecycle-manager-target
         - ntp-client
-        - freezer-agent
         - stunnel
         - monasca-agent
         - logging-rotate

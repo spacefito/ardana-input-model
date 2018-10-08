@@ -35,7 +35,6 @@
         - logging-rotate
         - logging-producer
         - monasca-agent
-        - freezer-agent
         - stunnel
         - lifecycle-manager-target
       clusters:
@@ -110,7 +109,6 @@
             - monasca-transform
             - logging-server
             - ops-console-web
-            - freezer-api
             - barbican-api
             - barbican-client
             - barbican-worker

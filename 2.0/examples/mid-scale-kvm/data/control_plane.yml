@@ -36,7 +36,6 @@
         - logging-rotate
         - logging-producer
         - monasca-agent
-        - freezer-agent
         - stunnel
         - lifecycle-manager-target
       clusters:
@@ -123,7 +122,6 @@
             - monasca-client
             - monasca-transform
             - zookeeper
-            - freezer-api
 
         - name: dbmq
           cluster-prefix: dbmq
