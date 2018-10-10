@@ -188,7 +188,7 @@ service-components:
         vip-options:
         - "balance source"
         - "mode http"
-        - "option httpchk LBCHK /"
+        - "option httpchk GET /healthcheck"
         - "option redispatch"
         - "option forwardfor"
         - "reqadd X-Forwarded-Proto:\\ https if { ssl_fc }"
@@ -208,7 +208,7 @@ service-components:
         - "http-request set-header X-Vip-Name internal"
         - "balance leastconn"
         - "mode http"
-        - "option httpchk LBCHK /"
+        - "option httpchk GET /healthcheck"
         - "option redispatch"
         - "option forwardfor"
         - "reqadd X-Forwarded-Proto:\\ https if { ssl_fc }"
@@ -227,7 +227,7 @@ service-components:
         vip-options:
         - "balance leastconn"
         - "mode http"
-        - "option httpchk LBCHK /"
+        - "option httpchk GET /healthcheck"
         - "option redispatch"
         - "option forwardfor"
         - "reqadd X-Forwarded-Proto:\\ https if { ssl_fc }"
