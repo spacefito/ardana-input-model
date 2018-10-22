@@ -96,7 +96,6 @@
             - zookeeper
             - heat-api
             - heat-api-cfn
-            - heat-api-cloudwatch
             - heat-engine
             - monasca-liveness-check
 

@@ -124,7 +124,6 @@
             - swift-object
             - heat-api
             - heat-api-cfn
-            - heat-api-cloudwatch
             - heat-engine
             - ceilometer-api
             - ceilometer-polling

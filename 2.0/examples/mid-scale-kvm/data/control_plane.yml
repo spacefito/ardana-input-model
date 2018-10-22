@@ -61,7 +61,6 @@
             - horizon
             - heat-api
             - heat-api-cfn
-            - heat-api-cloudwatch
             - heat-engine
             - heat-client
             - ip-cluster

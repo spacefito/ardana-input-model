@@ -83,7 +83,6 @@
             - swift-client
             - heat-api
             - heat-api-cfn
-            - heat-api-cloudwatch
             - heat-engine
             - heat-client
             - openstack-client

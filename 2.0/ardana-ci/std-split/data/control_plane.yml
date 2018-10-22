@@ -127,7 +127,6 @@
             - memcached
             - heat-api
             - heat-api-cfn
-            - heat-api-cloudwatch
             - heat-engine
             - ops-console-web
             - barbican-api
