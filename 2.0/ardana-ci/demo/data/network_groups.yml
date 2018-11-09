@@ -76,3 +76,5 @@
     - name: EXTERNAL-VM
       tags:
         - neutron.l3_agent.external_network_bridge
+        - neutron.networks.flat:
+            provider-physical-network: external
