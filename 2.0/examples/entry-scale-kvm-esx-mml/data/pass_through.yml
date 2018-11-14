@@ -94,7 +94,7 @@ pass-through:
     #  data:
     #    vmware:
     #      vcenter_cluster: <vmware cluster1 name>
-    #     cluster_dvs_mapping: <cluster dvs mapping>
+    #      cluster_dvs_mapping: <cluster dvs mapping>
     #      esx_hostname: <esx hostname hosting the ovsvapp>
     #      vcenter_id: <vcenter-uuid>
     #-
