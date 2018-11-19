@@ -99,12 +99,6 @@ service-components:
                 max-length: 12
                 min-length: 8
 
-        -   name: keystone_admin_token
-            value: '%random-password%'
-            properties:
-                max-length: 12
-                min-length: 8
-
         -   name: keystone_admin_role
             value: admin
 
@@ -162,7 +156,6 @@ service-components:
       - keystone_admin_pwd
       - keystone_admin_role
       - keystone_admin_tenant
-      - keystone_admin_token
       - keystone_admin_user
       - keystone_cloudadmin_domain
       - keystone_default_domain
