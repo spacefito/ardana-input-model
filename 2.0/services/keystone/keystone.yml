@@ -175,6 +175,8 @@ service-components:
 
     -   service-name: FND-RMQ
 
+    -   service-name: FND-MEM
+
     endpoints:
     -   port: '5000'
         has-vip: true
