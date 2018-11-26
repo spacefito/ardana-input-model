@@ -111,9 +111,6 @@ service-components:
         -   name: keystone_KeystoneSeviceAdmin_role
             value: KeystoneServiceAdmin
 
-        -   name: keystone_member_role
-            value: _member_
-
         -   name: keystone_monitoring_role
             value: monitor
 
@@ -159,7 +156,6 @@ service-components:
       - keystone_admin_user
       - keystone_cloudadmin_domain
       - keystone_default_domain
-      - keystone_member_role
       - keystone_monitoring_role
       - keystone_monitoring_tenant
       - keystone_service_role
