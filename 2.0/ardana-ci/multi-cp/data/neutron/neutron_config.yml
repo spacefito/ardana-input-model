@@ -43,9 +43,6 @@
         - name: ext-net-kvm1
           cidr: 172.31.0.0/16
           gateway: 172.31.0.1
-          provider:
-          - network_type: flat
-            physical_network: kvm1_external
       network-tags:
         - network-group: MANAGEMENT
           tags:
@@ -53,6 +50,11 @@
                 tenant-vxlan-id-range: "1:2000"
             - neutron.networks.vlan:
                 provider-physical-network: physnet1
+        - network-group: EXTERNAL-VM
+          tags:
+            - neutron.l3_agent.external_network_bridge
+
+
 
     - name: NEUTRON-CONFIG-KVM2
       services:
@@ -78,9 +80,6 @@
         - name: ext-net-kvm2
           cidr: 172.33.0.0/16
           gateway: 172.33.0.1
-          provider:
-            - network_type: flat
-              physical_network: kvm2_external
       network-tags:
         - network-group: MANAGEMENT
           tags:
@@ -88,6 +87,10 @@
                 tenant-vxlan-id-range: "2001:4000"
             - neutron.networks.vlan:
                 provider-physical-network: physnet1
+       - network-group: EXTERNAL-VM
+          tags:
+            - neutron.l3_agent.external_network_bridge
+
 
     - name: NEUTRON-CONFIG-IRONIC
       services:
