@@ -1,5 +1,4 @@
 #
-# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
 # (c) Copyright 2018 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -31,27 +30,5 @@
             - start: 172.31.0.128
               end: 172.30.12.254
           provider:
-          - network_type: flat
-            physical_network: external
-        neutron_provider_networks:
-        - name: OCTAVIA-MGMT-NET
-          provider:
-            - network_type: vlan
-              physical_network: physnet1
-              segmentation_id: 106
-          cidr: 172.30.1.0/24
-          no_gateway:  True
-          enable_dhcp: True
-          allocation_pools:
-            - start: 172.30.1.10
-              end: 172.30.1.250
-          host_routes:
-            # route to MANAGEMENT-NET-RACK1
-            - destination: 10.243.130.0/24
-              nexthop:  172.30.1.1
-            # route to MANAGEMENT-NET-RACK2
-            - destination: 10.243.131.0/24
-              nexthop:  172.30.1.1
-            # route to MANAGEMENT-NET-RACK3
-            - destination: 10.243.132.0/24
-              nexthop:  172.30.1.1
+            - network_type: flat
+              physical_network: external

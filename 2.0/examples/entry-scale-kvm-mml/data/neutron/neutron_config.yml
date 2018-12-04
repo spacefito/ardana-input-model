@@ -23,6 +23,17 @@
       services:
         - neutron
       data:
+        neutron_external_networks:
+        - name: ext-net
+          cidr: 172.31.0.0/16
+          gateway: 172.31.0.1
+          allocation_pool:
+          - start: 172.31.0.128
+            end: 172.31.12.254
+          provider:
+          - network_type: flat
+            provider_network: external
+
         neutron_provider_networks:
         - name: OCTAVIA-MGMT-NET
           provider:
