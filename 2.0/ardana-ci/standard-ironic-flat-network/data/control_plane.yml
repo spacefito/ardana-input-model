@@ -99,8 +99,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-pool-manager
-            - designate-zone-manager
+            - designate-worker
+            - designate-producer
             - designate-mdns
             - bind
 

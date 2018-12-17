@@ -150,8 +150,8 @@
             - barbican-worker
             - designate-api
             - designate-central
-            - designate-zone-manager
-            - designate-pool-manager
+            - designate-producer
+            - designate-worker
             - designate-mdns
             - bind
             - magnum-api
