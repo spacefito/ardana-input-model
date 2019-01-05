@@ -23,6 +23,16 @@ service-components:
     mnemonic: HEA-ENG
     service: heat
 
+    config-set:
+      -   name: heat-engine
+          ansible-vars:
+          -   name: heat_auth_encryption_key
+              value: '%random-password%'
+              immutable: 'true'
+              properties:
+                  max-length: 32
+                  min-length: 32
+
     consumes-services:
     -   service-name: FND-MDB
 
