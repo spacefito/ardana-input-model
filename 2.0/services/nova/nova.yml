@@ -46,11 +46,11 @@ services:
                         min-length: 8
                         key-name: rmq_nova_password
                 -   name: conf_permissions
-                    value: "^nova|^compute|^conductor|^consoleauth|^versioned_notifications|^notifications|^reply|^scheduler"
+                    value: "^nova|^compute|^conductor|^versioned_notifications|^notifications|^reply|^scheduler"
                 -   name: read_permissions
-                    value: "^nova|^compute|^conductor|^consoleauth|^versioned_notifications|^notifications|^reply|^scheduler"
+                    value: "^nova|^compute|^conductor|^versioned_notifications|^notifications|^reply|^scheduler"
                 -   name: write_permissions
-                    value: "^nova|^compute|^conductor|^consoleauth|^versioned_notifications|^notifications|^reply|^scheduler"
+                    value: "^nova|^compute|^conductor|^versioned_notifications|^notifications|^reply|^scheduler"
 
     -   service-name: FND-MDB
         relationship-vars:

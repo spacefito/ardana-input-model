@@ -61,7 +61,6 @@
             - nova-scheduler-ironic
             - nova-scheduler
             - nova-conductor
-            - nova-console-auth
             - nova-novncproxy
             - nova-client
             - neutron-server
