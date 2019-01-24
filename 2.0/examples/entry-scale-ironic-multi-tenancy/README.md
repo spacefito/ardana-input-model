@@ -1,6 +1,6 @@
 <!--
 (c) Copyright 2017 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017-2018 SUSE LLC
+(c) Copyright 2017-2019 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -30,13 +30,13 @@ supports multi-tenancy.
 ### Lifecycle Manager
 
   The lifecycle-manager runs on one of the control-plane nodes of type
-  CONTROLLER-ROLE. The ip address of the node that will run the
+  CONTROLLER-ROLE. The IP address of the node that will run the
   lifecycle-manager needs to be included in the `data/servers.yml` file.
 
 ### Resource Nodes
 
 - Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs nova-compute,
-  nova-compute-ironic and other supporting services.
+  nova-compute-ironic, and other supporting services.
 
 - Object Storage: Minimal Swift Resources are provided by the control plane.
 
@@ -44,24 +44,24 @@ supports multi-tenancy.
 
 This example requires the following networks:
 
-- IPMI/iLO network, connected to the deployer and the IPMI/iLO ports of all
+- IPMI/iLO: network connected to the deployer and the IPMI/iLO ports of all
   nodes.
 
-- External API - This is the network that users will use to make requests
+- External API: This is the network that users will use to make requests
   to the cloud.
 
-- Cloud Management - This is the network that will be used for all internal
+- Cloud Management: This is the network that will be used for all internal
   traffic between cloud services. This network is also used to install and
   configure the controller nodes. This network needs to be on an untagged
   VLAN.
 
-- Provisioning - This is the network used to PXE boot the Ironic nodes and
+- Provisioning: This is the network used to PXE boot the Ironic nodes and
   install the operating system selected by tenants. This network needs to be
   tagged on the switch for control plane/Ironic compute nodes. For
   Ironic bare metal nodes, VLAN configuration on the switch will be set by
   neutron driver.
 
-- Tenant VLANs - The range of VLAN IDs should be reserved for use by Ironic and
+- Tenant VLANs: The range of VLAN IDs should be reserved for use by Ironic and
   set in the cloud configuration. It is configured as untagged on control plane
   nodes, therefore it cannot be combined with Management network on the same
   network interface.
@@ -94,7 +94,7 @@ All nodes should present a single OS disk, protected by a RAID controller.
 This disk needs to be at least 512GB. In addition, the example
 configures additional disks depending on the node's role:
 
-- CONTROLLER-ROLE:  `/dev/sdb` and `/dev/sdc` are configured to be used by Swift
+- CONTROLLER-ROLE: `/dev/sdb` and `/dev/sdc` are configured to be used by Swift
 
 Additional disks can be configured for any of the roles by editing the
 corresponding `data/disks_*.yml` file.

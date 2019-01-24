@@ -1,6 +1,6 @@
 <!--
 (c) Copyright 2015 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017-2018 SUSE LLC
+(c) Copyright 2017-2019 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -29,13 +29,13 @@ service to provision physical machines through the Compute services API.
 ### Lifecycle Manager
 
   The lifecycle-manager runs on one of the control-plane nodes of type
-  CONTROLLER-ROLE. The ip address of the node that will run the
+  CONTROLLER-ROLE. The IP address of the node that will run the
   lifecycle-manager needs to be included in the `data/servers.yml` file.
 
 ### Resource Nodes
 
 - Ironic Compute: One node of type IRONIC-COMPUTE-ROLE runs nova-compute,
-  nova-compute-ironic and other supporting services.
+  nova-compute-ironic, and other supporting services.
 
 - Object Storage: Minimal Swift resources are provided by the control plane.
 
@@ -46,15 +46,15 @@ This example requires the following networks:
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all nodes.
 
-- External API - This is the network that users will use to make requests to
+- External API: This is the network that users will use to make requests to
   the cloud.
 
-- Cloud Management - This is the network that will be used for all internal
+- Cloud Management: This is the network that will be used for all internal
   traffic between cloud services. This network is also used to install and
   configure the controller nodes. This network needs to be on an untagged
   VLAN.
 
-- Guest - This is the flat network that will carry traffic between bare metal
+- Guest: This is the flat network that will carry traffic between bare metal
   instances within the cloud. It is also used to PXE boot these bare metal
   instances and install the operating system selected by tenants.
 
@@ -64,7 +64,7 @@ bare metal instances to make API calls to the cloud.
 This example's set of networks is defined in `data/networks.yml`.
 This file needs to be modified to reflect your environment.
 
-This example uses `hed3` & `hed4` as a bonded network interface for all nodes.
+This example uses `hed3` and `hed4` as a bonded network interface for all nodes.
 The name given to a network interface by the system is configured in the file
 `data/net_interfaces.yml`. That file needs to be modified to match your
 system.

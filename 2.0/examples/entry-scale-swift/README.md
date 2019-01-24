@@ -1,6 +1,6 @@
 <!--
 (c) Copyright 2015 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017-2018 SUSE LLC
+(c) Copyright 2017-2019 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -26,7 +26,7 @@ This example input model deploys an entry scale Swift environment.
 
 ### Lifecycle Manager
 
-  The lifecycle-manager runs on one of the control-plane nodes. The ip address
+  The lifecycle-manager runs on one of the control-plane nodes. The IP address
   of the node that will run the lifecycle-manager needs to be included in the
   `data/servers.yml` file.
 
@@ -43,21 +43,21 @@ This example requires the following networks:
 - IPMI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all servers.
 
-- External API - This is the network that users will use to make requests to
+- External API: This is the network that users will use to make requests to
   the cloud.
 
-- Cloud Management - This is the network that will be used for all internal
+- Cloud Management: This is the network that will be used for all internal
   traffic between the cloud services. This network is also used to install and
   configure the controller nodes only. This network needs to be on an untagged
   VLAN.
 
-- SWIFT - This network is used for internal Swift communications between the
+- SWIFT: This network is used for internal Swift communications between the
   Swift servers.
 
 An example set of networks is defined in `data/networks.yml`, which needs to be
 modified to reflect your environment.
 
-The example uses the devices `hed3` & `hed4` as a bonded network interface
+The example uses the devices `hed3` and `hed4` as a bonded network interface
 for all services. The name given to a network interface by the system is
 configured in the file `data/net_interfaces.yml`. That file needs to be
 edited to match your system.
@@ -69,9 +69,9 @@ This disk needs to be at least 512GB. In addition the example configures
 additional disks depending on the role of the server:
 
 - Controllers:  `/dev/sdb` and `/dev/sdc` are configured to be used by
-  Swift account and container services
+  Swift account and container services.
 
-- Object Servers:  `/dev/sdb`, `/dev/sdc`, `/dev/sdd` and `/dev/sde` are
+- Object Servers:  `/dev/sdb`, `/dev/sdc`, `/dev/sdd`, and `/dev/sde` are
   configured to be used by the Swift object service.
 
 Additional disks can be configured for any of these roles by editing the
