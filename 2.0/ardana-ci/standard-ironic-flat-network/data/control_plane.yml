@@ -79,7 +79,6 @@
             - ironic-api
             - ironic-conductor
             - ironic-client
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common

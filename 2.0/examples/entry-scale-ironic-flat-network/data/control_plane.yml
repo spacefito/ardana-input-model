@@ -84,7 +84,6 @@
             - ironic-conductor
             - ironic-client
             - openstack-client
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common

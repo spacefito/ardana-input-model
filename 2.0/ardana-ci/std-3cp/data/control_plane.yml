@@ -129,7 +129,6 @@
             - heat-api
             - heat-api-cfn
             - heat-engine
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common

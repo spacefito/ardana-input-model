@@ -92,7 +92,6 @@
                 glance_stores: 'file'
                 glance_default_store: 'file'
             - glance-registry
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common

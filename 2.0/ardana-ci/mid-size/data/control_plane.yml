@@ -94,7 +94,6 @@
           allocation-policy: strict
           service-components:
             - ntp-client
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common

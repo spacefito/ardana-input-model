@@ -22,32 +22,9 @@ service-components:
 -   name: ceilometer-api
     mnemonic: CEI-API
     service: ceilometer
-
-    advertises-to-services:
-    -   service-name: KEY-API
-        entries:
-        -   service-name: ceilometer
-            service-type: metering
-            service-description: "Ceilometer Service"
-            url-suffix: "/"
-
-
-    endpoints:
-    -   port: '8777'
-        has-vip: true
-        vip-options:
-        - "option httpchk HEAD /v2/health"
-        - "timeout client 10m"
-        - "timeout server 10m"
-        - "option redispatch"
-        roles:
-        - public
-        - internal
-        - admin
-
-    requires:
-    -   name: apache2
-        scope: host
-    # Needed for keystone registration of service.
-    - name: keystone-client
-      scope: host
+    hidden: true
+    warnings:
+    - >
+       'ceilometer-api' is no longer used by Ardana and
+       will not be deployed. Please update your input model to
+       remove this warning.

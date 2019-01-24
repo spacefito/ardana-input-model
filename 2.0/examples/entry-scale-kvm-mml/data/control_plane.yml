@@ -111,7 +111,6 @@
           service-components:
             - ntp-client
             - apache2
-            - ceilometer-api
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common
