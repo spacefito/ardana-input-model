@@ -1,6 +1,6 @@
 <!--
 (c) Copyright 2015 Hewlett Packard Enterprise Development LP
-(c) Copyright 2017-2018 SUSE LLC
+(c) Copyright 2017-2019 SUSE LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -19,7 +19,8 @@ under the License.
 
 This example input model is intended as a template for a moderately sized cloud.
 The Control plane is made up of multiple server clusters to provide sufficient
-computational, network and IOPS capacity for a mid-sized production style cloud.
+computational, network, and IOPS capacity for a mid-sized production
+style cloud.
 
 ### Control plane
 
@@ -27,19 +28,19 @@ computational, network and IOPS capacity for a mid-sized production style cloud.
   Horizon, Heat, Ceilometer, block storage, and object storage). The default
   configuration is two nodes of role type CORE-ROLE.
 
-- Metering & Monitoring cluster: Runs the OpenStack Services for metering
-  & monitoring (ceilometer, monasca & logging). Default configuration is
+- Metering and Monitoring cluster: Runs the OpenStack Services for metering
+  and monitoring (ceilometer, monasca, and logging). Default configuration is
   three nodes of role type MTRMON-ROLE.
 
-- Database & Message Queue Cluster: Runs clustered MariaDB and RabbitMQ
+- Database and Message Queue Cluster: Runs clustered MariaDB and RabbitMQ
   services to support the Ardana cloud infrastructure. Default configuration is
   three nodes of role type DBMQ-ROLE. Three nodes are required for high
   availability.
 
-- Swift PAC cluster: Runs the Swift Proxy, Account and Container services.
+- Swift PAC cluster: Runs the Swift Proxy, Account, and Container services.
   Default configuration is three nodes of role type SWPAC-ROLE.
 
-- Neutron Agent cluster: Runs Neutron VPN (L3), DHCP, Metadata and OpenVswitch
+- Neutron Agent cluster: Runs Neutron VPN (L3), DHCP, Metadata, and OpenVswitch
   agents. Default configuration is two nodes of role type NEUTRON-ROLE.
 
 ### Lifecycle Manager
@@ -64,26 +65,26 @@ reduced by consolidating services on the control plane clusters.
 
 This model requires the following networks:
 
-- IMPI/iLO network, connected to the lifecycle-manager and the IPMI/iLO ports
+- IMPI/iLO: network connected to the lifecycle-manager and the IPMI/iLO ports
   of all nodes.
 
-- External API - This is the network that users will use to make requests to
+- External API: This is the network that users will use to make requests to
   the cloud.
 
-- Internal API - This is the network that will be used within the cloud for API
+- Internal API: This is the network that will be used within the cloud for API
   access between services.
 
-- External VM - This is the network that will be used to provide external
+- External VM: This is the network that will be used to provide external
   access to VMs (via floating IP addresses).
 
-- Guest - This is the network that will carry traffic between VMs on private
+- Guest: This is the network that will carry traffic between VMs on private
   networks within the cloud.
 
-- Cloud Management - This is the network that will be used for all internal
+- Cloud Management: This is the network that will be used for all internal
   traffic between cloud services. In this model it is shown as untagged.
   It can be tagged if required.
 
-- SWIFT - This network is used for internal Swift communications between the
+- SWIFT: This network is used for internal Swift communications between the
   Swift nodes.
 
 The EXTERNAL-API network must be reachable from the EXTERNAL-VM network if you
@@ -92,7 +93,7 @@ want VMs to be able to make API calls to the cloud.
 An example set of networks is defined in `data/networks.yml`. You will need
 to modify this file to reflect your environment.
 
-The example uses `hed3` for the install network interface and `hed4` & `hed5`
+The example uses `hed3` for the install network interface and `hed4` and `hed5`
 for the bonded network interface. If you need to modify these for your
 environment use the file `data/net_interfaces.yml`.
 
@@ -119,18 +120,18 @@ environment are:
   in the Swift ring configuration. This is documented in the Swift
   section. Disk models are provided as follows:
 
-     * DISK SET CONTROLLER: Minimum 1 disk
-     * DISK SET DBMQ: Minimum 3 disks
-     * DISK SET COMPUTE: Minimum 2 disks
-     * DISK SET SWPAC: Minimum 3 disks
-     * DISK SET SWOBJ: Minimum 3 disks
+     * DISK SET CONTROLLER: Minimum 1 disk.
+     * DISK SET DBMQ: Minimum 3 disks.
+     * DISK SET COMPUTE: Minimum 2 disks.
+     * DISK SET SWPAC: Minimum 3 disks.
+     * DISK SET SWOBJ: Minimum 3 disks.
 
 - Update the `net_interfaces.yml` file to match the server NICs used in your
   configuration. This file has a separate interface model definition for each
   of the following:
 
-     * INTERFACE SET CONTROLLER
-     * INTERFACE SET DBMQ
-     * INTERFACE SET SWPAC
-     * INTERFACE SET SWOBJ
-     * INTERFACE SET COMPUTE
+     * INTERFACE SET CONTROLLER.
+     * INTERFACE SET DBMQ.
+     * INTERFACE SET SWPAC.
+     * INTERFACE SET SWOBJ.
+     * INTERFACE SET COMPUTE.
