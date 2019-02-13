@@ -54,7 +54,6 @@
             - keystone-client
             - rabbitmq
             - glance-api
-            - glance-registry
             - glance-client
             - nova-api
             - nova-placement-api

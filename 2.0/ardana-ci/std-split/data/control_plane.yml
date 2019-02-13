@@ -108,7 +108,6 @@
                 ha_mode: false
                 glance_stores: 'file'
                 glance_default_store: 'file'
-            - glance-registry
             - nova-api
             - nova-placement-api
             - nova-scheduler

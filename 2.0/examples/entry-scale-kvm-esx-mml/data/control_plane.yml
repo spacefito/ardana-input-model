@@ -52,7 +52,6 @@
             - keystone-api
             - keystone-client
             - glance-api
-            - glance-registry
             - glance-client
             - cinder-api
             - cinder-scheduler

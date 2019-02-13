@@ -56,7 +56,6 @@
             - cinder-client
             - keystone-client
             - glance-api
-            - glance-registry
             - glance-client
             - horizon
             - heat-api
