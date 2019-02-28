@@ -91,7 +91,6 @@
                 ha_mode: false
                 glance_stores: 'file'
                 glance_default_store: 'file'
-            - glance-registry
             - ceilometer-polling
             - ceilometer-agent-notification
             - ceilometer-common
