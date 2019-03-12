@@ -25,7 +25,7 @@ service-components:
     hidden: true
     warnings:
     - >
-       'neutron-lbaasv2-agen' has been deprecated and replaced by
+       'neutron-lbaasv2-agent' has been deprecated and replaced by
        'octavia' and will not be deployed in a future release.
        Please update your input model to remove this warning.
 
