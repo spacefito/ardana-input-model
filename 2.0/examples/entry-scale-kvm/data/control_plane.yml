@@ -55,7 +55,6 @@
             - keystone-client
             - rabbitmq
             - glance-api
-            - glance-registry
             - glance-client
             - cinder-api
             - cinder-scheduler
@@ -134,5 +133,4 @@
             - neutron-l3-agent
             - neutron-metadata-agent
             - neutron-openvswitch-agent
-            - neutron-lbaasv2-agent
             - manila-share

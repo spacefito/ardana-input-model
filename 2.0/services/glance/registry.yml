@@ -22,12 +22,9 @@ service-components:
 -   name: glance-registry
     mnemonic: GLA-REG
     service: glance
-
-    endpoints:
-    -   port: '9191'
-        has-vip: true
-        vip-options:
-        - "option httpchk GET /healthcheck"
-        roles:
-        # Note: For security, the registry *must* only ever be 'internal'
-        - internal
+    hidden: true
+    warnings:
+      - >
+        'glance-registry' has been deprectated and is no longer deployed.
+        Please update you input model to remove any 'glance-registry'
+        service component specifications to remove this warning.

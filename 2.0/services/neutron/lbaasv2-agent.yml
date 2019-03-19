@@ -22,6 +22,12 @@ service-components:
 -   name: neutron-lbaasv2-agent
     mnemonic: NEU-LBAV2
     service: neutron
+    hidden: true
+    warnings:
+    - >
+       'neutron-lbaasv2-agent' has been deprecated and replaced by
+       'octavia' and will not be deployed in a future release.
+       Please update your input model to remove this warning.
 
     consumes-services:
     -   service-name: FND-RMQ

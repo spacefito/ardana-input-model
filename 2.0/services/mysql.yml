@@ -93,7 +93,9 @@ service-components:
          -  "timeout client 90m"
          -  "timeout connect 5000"
          -  "timeout server 90m"
-        vip-check: "check port 9500 inter 12000 rise 3 fall 3"
+         -  "stick-table type ip size 1000"
+         -  "stick on dst"
+        vip-check: "check port 9500 inter 12000 rise 3 fall 3 on-marked-down shutdown-sessions "
         vip-backup-mode: true
         vip-tls-terminator: false
         tls-terminator: false

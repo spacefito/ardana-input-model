@@ -78,8 +78,6 @@ service-components:
                 max-length: 12
                 min-length: 8
 
-    -   service-name: GLA-REG
-
     -   service-name: SWF-PRX
         optional: true
 

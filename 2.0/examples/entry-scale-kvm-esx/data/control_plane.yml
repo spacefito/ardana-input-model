@@ -54,7 +54,6 @@
             - keystone-client
             - rabbitmq
             - glance-api
-            - glance-registry
             - glance-client
             - cinder-api
             - cinder-scheduler
@@ -129,7 +128,6 @@
             - nova-compute
             - nova-compute-kvm
             - neutron-openvswitch-agent
-            - neutron-lbaasv2-agent
             - manila-share
 
         - name: esx-compute

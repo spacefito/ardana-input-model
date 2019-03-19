@@ -82,7 +82,6 @@
                 ha_mode: false
                 glance_stores: 'file'
                 glance_default_store: 'file'
-            - glance-registry
             - cinder-api
             - cinder-scheduler
             - cinder-volume
@@ -118,4 +117,3 @@
             - neutron-l3-agent
             - neutron-metadata-agent
             - neutron-openvswitch-agent
-            - neutron-lbaasv2-agent
