@@ -78,7 +78,7 @@ All servers should present a single OS disk, protected by a RAID controller.
 This disk needs to be at least 512GB. In addition the example configures one
 additional disk depending on the role of the server:
 
-- Controllers: `/dev/sdb` is configured to be used by Swift.
+- Controllers: `/dev/sdb` and /dev/sdc are configured to be used by Swift.
 
 - Compute Servers: `/dev/sdb` is configured as an additional Volume Group to be
   used for VM storage.
