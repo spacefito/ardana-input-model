@@ -30,6 +30,7 @@ This example input model deploys an entry scale cloud with KVM Hypervisor.
   The lifecycle-manager runs on one of the control-plane nodes of type
   CONTROLLER-ROLE. The IP address of the node that will run the
   lifecycle-manager needs to be included in the `data/servers.yml` file.
+  The node which runs the deployer will need access to the appropriate repositories. 
 
 ### Resource Nodes
 
@@ -58,7 +59,7 @@ This example requires the following networks:
   configure the nodes. This network needs to be on an untagged VLAN.
 
 - Guest: This is the network that will carry traffic between VMs on private
-  networks within the cloud.
+  networks within the cloud. It will also be used to create provider networks.
 
 The EXTERNAL\_API network must be reachable from the EXTERNAL\_VM
 network for VMs to be able to make API calls to the cloud.
@@ -84,3 +85,14 @@ additional disk depending on the role of the server:
 
 Additional disks can be configured for any of these roles by editing
 the corresponding `data/disks_*.yml` file.
+
+### Server-roles:
+    - name: CONTROLLER-ROLE
+      interface-model: CONTROLLER-INTERFACES (hed3, hed4)
+      disk-model: CONTROLLER-1TB-DISKS (/dev/sda 1T, /dev/sdb 512G for swift, /dev/sdc 512G for swift)
+
+    - name: COMPUTE-ROLE
+      interface-model: COMPUTE-INTERFACES (hed3, hed4)
+      disk-model: COMPUTE-DISKS (/dev/sda 512G, /dev/sdb +1T for vms)
+
+     
